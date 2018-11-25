@@ -1,0 +1,20 @@
+{
+  "name": "gdax-prices",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run start\" \"npm run client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrency": "^0.1.4",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.6"
+  }
+}
