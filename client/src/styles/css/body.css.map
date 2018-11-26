@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "body.css",
+	"sources": [
+		"../scss/body.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,CAAC,CAAC;EACA,KAAK,EAAE,KAAK,GACb"
+}
