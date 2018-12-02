@@ -1,6 +1,16 @@
 const express = require("express");
+const passport = require("passport");
+const keys = require("./config/keys");
+
+require("./services/passport");
 
 const app = express();
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+require("./routes/auth/coinbaseAuthRoutes")(app);
+require("./routes/auth/googleAuthRoutes")(app);
 
 app.use(express.static(__dirname + '/public'))
 
