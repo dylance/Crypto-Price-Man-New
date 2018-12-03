@@ -27,7 +27,7 @@ class App extends Component {
       return `https://api.pro.coinbase.com/products/${coin}-usd/ticker`
     })
 
-    axios.all(coinUrls.map(l => axios.get(l))).then(axios.spread(function(...res) {
+    axios.all(coinUrls.map(l => axios.get(l))).then(axios.spread((...res) => {
       return res.map((item, key) => {
         item.data.coin = self.coinList[key]
         return item.data
@@ -35,6 +35,15 @@ class App extends Component {
     })).then(fun => {
       this.setState({priceList: fun})
     })
+
+    axios.get('/api/coinbase/coins')
+      .then(response => {
+        console.log("The response is: ", response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+        return error
+    });
   }
 
   render() {
