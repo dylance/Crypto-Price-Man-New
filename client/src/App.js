@@ -3,7 +3,9 @@ import axios from 'axios';
 import Navbar from './components/Navbar';
 import Header from './components/Header';
 import BtcCard from './components/BtcCard'
+import testfunction from './utils/testfunction';
 const iconPath = process.env.PUBLIC_URL + '/img/';
+
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +17,8 @@ class App extends Component {
     }
   }
 
+
+
   renderPrices() {
     return this.state.priceList.map((item, key) => {
       return <BtcCard key={key} prices={item}/>
@@ -22,6 +26,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    testfunction()
     const self = this
     const coinUrls = this.coinList.map(coin => {
       return `https://api.pro.coinbase.com/products/${coin}-usd/ticker`
@@ -47,6 +52,7 @@ class App extends Component {
   }
 
   render() {
+
     return (<React.Fragment>
       <Header/>
       <div>{this.state.btcusd}</div>
