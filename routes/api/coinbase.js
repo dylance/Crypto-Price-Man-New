@@ -19,4 +19,19 @@ module.exports = app => {
       res.send(prices)
     })
   })
+
+  app.get('/api/coinbase/coins-stats', (req, res) => {
+    const coinUrls = coinList.map(coin => {
+      return `https://api.pro.coinbase.com/products/${coin}-usd/stats`
+    })
+
+    axios.all(coinUrls.map(l => axios.get(l))).then(axios.spread((...res) => {
+      return res.map((item, key) => {
+        item.data.coin = coinList[key]
+        return item.data
+      })
+    })).then(prices => {
+      res.send(prices)
+    })
+  })
 }
