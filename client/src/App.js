@@ -23,10 +23,23 @@ class App extends Component {
     })
   }
 
+  updatePrices() {
+    return getJSON('/api/coinbase/coins-ticker').then(response =>{
+      console.log(response)
+      return response;
+    })
+  }
+
   componentDidMount() {
-    return Promise.all([
+    Promise.all([
       getJSON('/api/coinbase/coins-ticker'), getJSON('/api/coinbase/coins-stats')])
-        .then(([coins, ticker]) => this.setState({pricesTicker: coins, pricesStats: ticker}));
+        .then(([coins, ticker]) => this.setState({pricesTicker: coins, pricesStats: ticker})
+    );
+
+    setInterval(() => {
+      this.updatePrices()
+        .then(response => this.setState({pricesTicker: response}))
+      }, 11000)
   }
 
   render() {
