@@ -4,9 +4,7 @@ import _ from 'lodash';
 import Navbar from './components/Navbar';
 import Header from './components/Header';
 import BtcCard from './components/BtcCard'
-import testfunction from './utils/testfunction';
 import getJSON from './utils/getJSON';
-const iconPath = process.env.PUBLIC_URL + '/img/';
 
 class App extends Component {
   constructor(props) {
