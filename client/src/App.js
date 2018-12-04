@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 import Navbar from './components/Navbar';
 import Header from './components/Header';
 import BtcCard from './components/BtcCard'
 import testfunction from './utils/testfunction';
+import getJSON from './utils/getJSON';
 const iconPath = process.env.PUBLIC_URL + '/img/';
-
 
 class App extends Component {
   constructor(props) {
@@ -13,46 +14,24 @@ class App extends Component {
     this.coinList = ['btc', 'eth', 'bch', 'ltc']
 
     this.state = {
-      priceList: []
+      pricesTicker: [],
+      pricesStats: []
     }
   }
 
-
-
   renderPrices() {
-    return this.state.priceList.map((item, key) => {
-      return <BtcCard key={key} prices={item}/>
+    return _.zipWith(this.state.pricesTicker, this.state.pricesStats, (ticker, stats) => {
+      return <BtcCard key={ticker.coin} ticker={ticker} stats={stats}/>
     })
   }
 
   componentDidMount() {
-    testfunction()
-    const self = this
-    const coinUrls = this.coinList.map(coin => {
-      return `https://api.pro.coinbase.com/products/${coin}-usd/ticker`
-    })
-
-    axios.all(coinUrls.map(l => axios.get(l))).then(axios.spread((...res) => {
-      return res.map((item, key) => {
-        item.data.coin = self.coinList[key]
-        return item.data
-      })
-    })).then(fun => {
-      this.setState({priceList: fun})
-    })
-
-    axios.get('/api/coinbase/coins')
-      .then(response => {
-        console.log("The response is: ", response.data)
-      })
-      .catch(function (error) {
-        console.log(error);
-        return error
-    });
+    return Promise.all([
+      getJSON('/api/coinbase/coins-ticker'), getJSON('/api/coinbase/coins-stats')])
+        .then(([coins, ticker]) => this.setState({pricesTicker: coins, pricesStats: ticker}));
   }
 
   render() {
-
     return (<React.Fragment>
       <Header/>
       <div>{this.state.btcusd}</div>
