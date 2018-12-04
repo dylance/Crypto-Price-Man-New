@@ -19,28 +19,10 @@ module.exports = app => {
         })},10000)
 
   app.get('/api/coinbase/coins-ticker', (req, res) => {
-  //  const coinUrls = coinList.map(coin => `https://api.pro.coinbase.com/products/${coin}-usd/ticker`)
-
     res.send(pricess)
   })
 
-
   app.get('/api/coinbase/coins-stats', (req, res) => {
-    const coinUrls = coinList.map(coin => `https://api.pro.coinbase.com/products/${coin}-usd/ticker`)
-
-    axios.all(coinUrls.map(url => axios.get(url)))
-      .then(response => {
-        return response.map((item, key) => {
-          item.data.coin = coinList[key]
-          return item.data
-        })
-      })
-      .then(prices => {
-        res.send(prices)
-      })
-  })
-
-  app.get('/api/coinbase / coins - stats', (req, res) => {
     const coinUrls = coinList.map(coin => `https://api.pro.coinbase.com/products/${coin}-usd/stats`)
 
     axios.all(coinUrls.map(url => axios.get(url))).then(axios.spread((...res) => {
