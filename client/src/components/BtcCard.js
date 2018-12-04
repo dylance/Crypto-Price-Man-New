@@ -12,7 +12,6 @@ const BtcCard = (props) => {
         </ul>
       </div>
     )
-
 }
 
 export default BtcCard;

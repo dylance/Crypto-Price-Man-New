@@ -11,8 +11,6 @@ const iconPath = process.env.PUBLIC_URL + '/img/';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.coinList = ['btc', 'eth', 'bch', 'ltc']
-
     this.state = {
       pricesTicker: [],
       pricesStats: []

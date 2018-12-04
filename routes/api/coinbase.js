@@ -7,7 +7,6 @@ module.exports = app => {
   let pricess = "this is my prices"
   const coinUrls = coinList.map(coin => `https://api.pro.coinbase.com/products/${coin}-usd/ticker`)
 
-
   setInterval( () => {  axios.all(coinUrls.map(url => axios.get(url)))
         .then(response => {
           return response.map((item, key) => {
@@ -26,7 +25,6 @@ module.exports = app => {
   })
 
 
-
   app.get('/api/coinbase/coins-stats', (req, res) => {
     const coinUrls = coinList.map(coin => `https://api.pro.coinbase.com/products/${coin}-usd/ticker`)
 
@@ -42,7 +40,7 @@ module.exports = app => {
       })
   })
 
-  app.get('/api/coinbase/coins-stats', (req, res) => {
+  app.get('/api/coinbase / coins - stats', (req, res) => {
     const coinUrls = coinList.map(coin => `https://api.pro.coinbase.com/products/${coin}-usd/stats`)
 
     axios.all(coinUrls.map(url => axios.get(url))).then(axios.spread((...res) => {
