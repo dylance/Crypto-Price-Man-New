@@ -8,11 +8,13 @@ const User = mongoose.model('users')
 
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id); // the id from mongo, not profile.id. Id can be from different auth providers
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(function(id, done) {
+  User.findById(id).then(user => {
+    done(null, user);
+  });
 });
 
 passport.use(
