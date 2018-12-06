@@ -17,19 +17,6 @@ require("./routes/auth/coinbaseAuthRoutes")(app);
 require("./routes/auth/googleAuthRoutes")(app);
 require("./routes/api/coinbase")(app);
 
-// app.get('/api/coinbase', (req, res) => {
-//   // axios.get('https://api.coinbase.com/v2/currencies')
-//   //   .then(function (response) {
-//   //     console.log(response);
-//   //     res.write(response.body);
-//   //   })
-//   //   .catch(function (error) {
-//   //     console.log(error);
-//   //   });
-//   res.write("hello")
-// })
-
-
 app.use(express.static(__dirname + '/public'))
 
 if (process.env.NODE_ENV === "production") {

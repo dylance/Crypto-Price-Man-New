@@ -9,6 +9,8 @@ import getJSON from './utils/getJSON';
 class App extends Component {
   constructor(props) {
     super(props)
+    this.tickerURL = '/api/coinbase/coins-ticker';
+    this.statsURL = '/api/coinbase/coins-stats';
     this.state = {
       pricesTicker: [],
       pricesStats: []
@@ -16,36 +18,31 @@ class App extends Component {
   }
 
   renderPrices() {
+    console.log("prices rendered")
     return _.zipWith(this.state.pricesTicker, this.state.pricesStats, (ticker, stats) => {
       return <BtcCard key={ticker.coin} ticker={ticker} stats={stats}/>
     })
   }
 
-  updatePrices() {
-    return getJSON('/api/coinbase/coins-ticker').then(response =>{
-      console.log(response)
-      return response;
-    })
-  }
-
   componentDidMount() {
+    console.log("component mounted")
     Promise.all([
-      getJSON('/api/coinbase/coins-ticker'), getJSON('/api/coinbase/coins-stats')])
+      getJSON(this.tickerURL), getJSON(this.statsURL)])
         .then(([coins, ticker]) => this.setState({pricesTicker: coins, pricesStats: ticker})
     );
 
     setInterval(() => {
-      this.updatePrices()
+      getJSON(this.tickerURL)
         .then(response => this.setState({pricesTicker: response}))
       }, 11000)
   }
 
   render() {
-    return (<React.Fragment>
-      <Header/>
-      <div>{this.state.btcusd}</div>
-      {this.renderPrices()}
-    </React.Fragment>);
+    return (
+      <React.Fragment>
+        <Header/>
+        {this.renderPrices()}
+      </React.Fragment>);
   }
 }
 
