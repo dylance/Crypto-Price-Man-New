@@ -14,6 +14,11 @@ module.exports = app => {
   );
 
   app.get("/api/current_user", (req, res) => {
-    res.send(req.user);
+    res.send(req.user || "you are not logged in!");
+  });
+
+  app.get("/api/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
   });
 }
