@@ -3,7 +3,7 @@ const axios = require('axios');
 
 module.exports = app => {
 
-  coinList = ['BTC', 'BCH', 'ETH', 'ETC', 'LTC', 'XRP', 'ETC', 'ADA', 'ZEC', 'TRX', 'SC']
+  coinList = ['BTC', 'BCH', 'ETH', 'ETC', 'LTC', 'XRP', 'ADA', 'ZEC', 'TRX', 'SC']
   coinsUrl = 'https://bittrex.com/api/v1.1/public/getticker'
 
   app.get('/api/bittrex/coins-ticker', (req, res) => {
