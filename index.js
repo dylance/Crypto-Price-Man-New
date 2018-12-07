@@ -23,6 +23,7 @@ app.use(passport.session());
 require("./routes/auth/coinbaseAuthRoutes")(app);
 require("./routes/auth/googleAuthRoutes")(app);
 require("./routes/api/coinbase")(app);
+require("./routes/api/bittrex")(app);
 
 app.use(express.static(__dirname + '/public'))
 
