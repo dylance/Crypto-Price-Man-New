@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import { BrowserRouter, Route } from 'react-router-dom';
+import createFragment from "react-addons-create-fragment";
 import _ from 'lodash';
 import Navbar from './components/Navbar';
 import Header from './components/Header';
@@ -29,9 +30,13 @@ class App extends Component {
 
   renderBittrex() {
     console.log("bittrex stats are",this.state.bittrexStats)
-    return this.state.bittrexStats.map(ticker => {
-      return <BittrexCard key={ticker.coin} ticker={ticker}/>
-    })
+    return createFragment({
+  date: <h1>Bittrex</h1>,
+  lineComponent: this.state.bittrexStats.map(ticker => {
+    return <BittrexCard key={ticker.coin} ticker={ticker}/>
+  }),
+});
+
   }
 
   componentDidMount() {
@@ -51,9 +56,12 @@ class App extends Component {
     return (
       <React.Fragment>
         <Header/>
-        {this.renderPrices()}
-        <h1 style={{color: 'green'}}>Bittrex</h1>
-        {this.renderBittrex()}
+        <BrowserRouter>
+          <div>
+            <Route exact={true} path="/" render={() =>this.renderPrices()} />
+            <Route exact={true} path="/bittrex" render={() => this.renderBittrex()} />
+          </div>
+        </BrowserRouter>
       </React.Fragment>);
   }
 }

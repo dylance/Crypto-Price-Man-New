@@ -10,8 +10,8 @@ const BtcCard = (props) => {
           </li>
           <li className="list-group-item">Price: {props.ticker.price}</li>
           <li className="list-group-item">Volume: {props.ticker.volume}</li>
-          <li className="list-group-item">24 hr high: {props.stats.high}</li>
-          <li className="list-group-item">24 hr low: {props.stats.low}</li>
+          <li className="list-group-item">24 hr high: {props.stats.high || "high"}</li>
+          <li className="list-group-item">24 hr low: {props.stats.low || "low"}</li>
         </ul>
       </div>
     )
