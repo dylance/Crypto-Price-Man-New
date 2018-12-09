@@ -14,10 +14,12 @@ class App extends Component {
     this.tickerURL = '/api/coinbase/coins-ticker';
     this.statsURL = '/api/coinbase/coins-stats';
     this.bittrexURL = '/api/bittrex/coins-ticker';
+    this.poloniexURL = '/api/poloniex/coins-ticker';
     this.state = {
       pricesTicker: [],
       pricesStats: [],
-      bittrexStats: []
+      bittrexStats: [],
+      poloniexStats: []
     }
   }
 
@@ -36,14 +38,29 @@ class App extends Component {
     return <PriceCard key={ticker.coin} ticker={ticker}/>
   }),
 });
+}
+
+renderPoloniexPrices() {
+  console.log("bittrex stats are",this.state.bittrexStats)
+  return createFragment({
+date: <h1>Poloniex</h1>,
+lineComponent: this.state.poloniexStats.map(ticker => {
+  return <PriceCard key={ticker.coin} ticker={ticker}/>
+}),
+});
 
   }
 
   componentDidMount() {
     console.log("component mounted")
     Promise.all([
-      getJSON(this.tickerURL), getJSON(this.statsURL), getJSON(this.bittrexURL) ])
-        .then(([coins, ticker, bittrex]) => this.setState({pricesTicker: coins, pricesStats: ticker, bittrexStats: bittrex })
+      getJSON(this.tickerURL), getJSON(this.statsURL), getJSON(this.bittrexURL), getJSON(this.poloniexURL) ])
+        .then(([coins, ticker, bittrex, poloniex]) => this.setState({
+          pricesTicker: coins,
+          pricesStats: ticker,
+          bittrexStats: bittrex,
+          poloniexStats: poloniex
+        })
     );
 
     // setInterval(() => {
@@ -60,6 +77,7 @@ class App extends Component {
           <div>
             <Route exact={true} path="/" render={() =>this.renderCoinbasePrices()} />
             <Route exact={true} path="/bittrex" render={() => this.renderBittrexPrices()} />
+            <Route exact={true} path="/poloniex" render={() => this.renderPoloniexPrices()} />
           </div>
         </BrowserRouter>
       </React.Fragment>);
