@@ -1,7 +1,9 @@
 const axios = require('axios');
-
+const { swapProperty }= require('../../utils/apiUtils')
 
 module.exports = app => {
+
+
 
   const coinList = ['BTC', 'BCH', 'ETH', 'ETC', 'LTC', 'XRP', 'ADA', 'ZEC', 'TRX', 'SC']
   const coinsUrl = 'https://bittrex.com/api/v1.1/public/getticker'
@@ -50,15 +52,10 @@ module.exports = app => {
       bittrex.forEach((coin, index) => {
         coin.MarketName = coin.MarketName.replace('USD-', '')
         coin.coin = coin.MarketName.replace('USD-', '')
-        coin.price = coin.Last;
-        delete coin.Last;
-        console.log("the volume is", coin.Volume)
-        coin.volume = coin.Volume;
-        delete coin.Volume;
-        coin.high = coin.High;
-        delete coin.High;
-        coin.low = coin.Low;
-        delete coin.Low;
+        swapProperty(coin,'price','Last')
+        swapProperty(coin,'volume','Volume')
+        swapProperty(coin,'high','High')
+        swapProperty(coin,'low','Low')
 
         console.log("the new market name is: ", coin.MarketName)
       })
