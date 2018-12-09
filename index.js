@@ -24,6 +24,7 @@ require("./routes/auth/coinbaseAuthRoutes")(app);
 require("./routes/auth/googleAuthRoutes")(app);
 require("./routes/api/coinbase")(app);
 require("./routes/api/bittrex")(app);
+require("./routes/api/poloniex")(app);
 
 app.use(express.static(__dirname + '/public'))
 
