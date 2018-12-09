@@ -9,6 +9,8 @@ const BittrexCard = (props) => {
             <img alt={props.ticker.coin} src={imgPath + props.ticker.coin + '.png'}/>
           </li>
           <li className="list-group-item">Price: {props.ticker.Last}</li>
+           { props.ticker.high === "undefined" && <li className="list-group-item">Price: {props.ticker.Last}</li>}
+
         </ul>
       </div>
     )
