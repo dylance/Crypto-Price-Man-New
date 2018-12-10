@@ -26,16 +26,20 @@ class App extends Component {
 
   renderCoinbasePrices() {
     console.log("prices rendered")
-    return _.zipWith(this.state.pricesTicker, this.state.pricesStats, (ticker, stats) => {
-      return <PriceCard key={ticker.coin} ticker={ticker} stats={stats}/>
+    return createFragment({
+      exchange: <h1>Coinbase</h1>,
+      currencies: _.zipWith(this.state.pricesTicker, this.state.pricesStats, (ticker, stats) => {
+        return <PriceCard key={ticker.coin} ticker={ticker} stats={stats}/>
+      }
+      )
     })
   }
 
   renderBittrexPrices() {
     console.log("bittrex stats are",this.state.bittrexStats)
     return createFragment({
-  date: <h1>Bittrex</h1>,
-  lineComponent: this.state.bittrexStats.map(ticker => {
+  exchange: <h1>Bittrex</h1>,
+  currencies: this.state.bittrexStats.map(ticker => {
     return <PriceCard key={ticker.coin} ticker={ticker}/>
   }),
 });
@@ -44,8 +48,8 @@ class App extends Component {
 renderPoloniexPrices() {
   console.log("bittrex stats are",this.state.bittrexStats)
   return createFragment({
-date: <h1>Poloniex</h1>,
-lineComponent: this.state.poloniexStats.map(ticker => {
+exchange: <h1>Poloniex</h1>,
+currencies: this.state.poloniexStats.map(ticker => {
   return <PriceCard key={ticker.coin} ticker={ticker}/>
 }),
 });
