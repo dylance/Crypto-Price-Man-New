@@ -4,8 +4,9 @@ import createFragment from "react-addons-create-fragment";
 import _ from 'lodash';
 import Navbar from './components/Navbar';
 import Header from './components/Header';
-import PriceCard from './components/PriceCard'
-import BittrexCard from './components/BittrexCard'
+import Exchanges from './components/Exchanges';
+import PriceCard from './components/PriceCard';
+import BittrexCard from './components/BittrexCard';
 import getJSON from './utils/getJSON';
 
 class App extends Component {
@@ -73,6 +74,7 @@ lineComponent: this.state.poloniexStats.map(ticker => {
     return (
       <React.Fragment>
         <Header/>
+        <Exchanges/>
         <BrowserRouter>
           <div>
             <Route exact={true} path="/" render={() =>this.renderCoinbasePrices()} />
