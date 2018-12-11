@@ -51,13 +51,24 @@ passport.use(new CoinbaseStrategy({
   },
   (accessToken, refreshToken, profile, done) => {
     // asynchronous verification, for effect...
-    process.nextTick(() =>{
+    process.nextTick(() => {
+      console.log("The profile is: ", profile.id)
       console.log("The profile is: ", profile)
       // To keep the example simple, the user's Coinbase profile is returned to
       // represent the logged-in user.  In a typical application, you would want
       // to associate the Coinbase account with a user record in your database,
       // and return that user instead.
-      return done(null, profile);
+
+      User.findOne({ coinbaseId: profile.id })
+        .then(existingUser => {
+          if(existingUser) {
+            return done(null, existingUser);
+          } else {
+            new User({ coinbaseId: profile.id, name: profile.displayName })
+              .save()
+              .then(user => done(null, user));
+          }
+      })
     });
   }
 ));
