@@ -9,9 +9,9 @@ const Header = () => {
         <a className="navbar-brand">Crypto Price Man</a>
         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
       </nav>
-    </div>  
+    </div>
     </React.Fragment>
-)
+  )
 }
 
 export default Header;
