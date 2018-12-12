@@ -16,7 +16,7 @@ deploy:
     #- ssh -t root@107.170.232.240 mv /var/www/default/old/2/* /var/www/default/old/3/
     #- ssh -t root@107.170.232.240 mv /var/www/default/old/1/* /var/www/default/old/2/
     #- ssh -t root@107.170.232.240 mv /var/www/default/index.html /var/www/default/old/1/
-    - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylance/crypto-price-tracker.git /home/dylan/house/domains/ztest
+    - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylan-ellison/crypto-price-tracker.git /home/dylan/house/domains/ztest
     #- ssh -t root@107.170.232.240 mv /var/www/default/temp/* /var/www/default/
     #- ssh -t root@107.170.232.240 rm -rf /var/www/default/temp
     #- ssh -t root@46.101.155.242 git clone https://gitlab+deploy-token-9291:DU9VDSwZBbxWsHB24BfV@gitlab.com/dylance/test-deploy.git /var/www/test/
