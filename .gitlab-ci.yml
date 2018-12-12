@@ -12,15 +12,13 @@ deploy:
     - mkdir -p ~/.ssh
     - echo "StrictHostKeyChecking no" > ~/.ssh/config
     - echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-    #- ssh -t root@107.170.232.240 rm -rf /var/www/default/old/3/*
-    #- ssh -t root@107.170.232.240 mv /var/www/default/old/2/* /var/www/default/old/3/
-    #- ssh -t root@107.170.232.240 mv /var/www/default/old/1/* /var/www/default/old/2/
-    #- ssh -t root@107.170.232.240 mv /var/www/default/index.html /var/www/default/old/1/
-    - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylan-ellison/crypto-price-tracker.git /home/dylan/house/domains/ztest
-    #- ssh -t root@107.170.232.240 mv /var/www/default/temp/* /var/www/default/
-    #- ssh -t root@107.170.232.240 rm -rf /var/www/default/temp
-    #- ssh -t root@46.101.155.242 git clone https://gitlab+deploy-token-9291:DU9VDSwZBbxWsHB24BfV@gitlab.com/dylance/test-deploy.git /var/www/test/
-    #- ssh -t root@46.101.155.242 cd /home/dylan/house/domains/crypto-test2 && npm install && CI=false npm run build
+    - ssh -t root@107.170.232.240 mv /home/dylan/house/domains/cryptopriceman.com /home/dylan/house/domains/cryptorpricemanold.com
+    - ssh -t root@107.170.232.240 forever stopall
+    - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylan-ellison/crypto-price-tracker.git /home/dylan/house/domains/cryptopriceman.com
+    - ssh -t root@46.101.155.242 cd /home/dylan/house/domains/cryptopriceman.com && npm install
+    - ssh -t root@46.101.155.242 cd /home/dylan/house/domains/cryptopriceman.com/client && npm install && CI=false npm run build
+    - ssh -t root@46.101.155.242 cd /home/dylan/house/domains/cryptopriceman.com && mkdir config $$ cp /home/dylan/house/domains/keys/keys.js /home/dylan/house/domains/cryptopriceman.com/config/keys.js
+    - ssh -t root@46.101.155.242 cd /home/dylan/house/domains/cryptopriceman.com && forever start index.js
     #- scp -r ./* ssh root@46.101.155.242:/home/dylan/house/domains/crypto-test
   environment:
     name: $CI_BUILD_REF_NAME
