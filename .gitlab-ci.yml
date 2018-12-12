@@ -1,0 +1,31 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  image: node
+  script:
+    - apt-get update -y && apt-get install openssh-client -y
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY"
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo "StrictHostKeyChecking no" > ~/.ssh/config
+    - echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+    #- ssh -t root@107.170.232.240 rm -rf /var/www/default/old/3/*
+    #- ssh -t root@107.170.232.240 mv /var/www/default/old/2/* /var/www/default/old/3/
+    #- ssh -t root@107.170.232.240 mv /var/www/default/old/1/* /var/www/default/old/2/
+    #- ssh -t root@107.170.232.240 mv /var/www/default/index.html /var/www/default/old/1/
+    - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylance/crypto-price-tracker.git /home/dylan/house/domains/ztest
+    #- ssh -t root@107.170.232.240 mv /var/www/default/temp/* /var/www/default/
+    #- ssh -t root@107.170.232.240 rm -rf /var/www/default/temp
+    #- ssh -t root@46.101.155.242 git clone https://gitlab+deploy-token-9291:DU9VDSwZBbxWsHB24BfV@gitlab.com/dylance/test-deploy.git /var/www/test/
+    #- ssh -t root@46.101.155.242 cd /home/dylan/house/domains/crypto-test2 && npm install && CI=false npm run build
+    #- scp -r ./* ssh root@46.101.155.242:/home/dylan/house/domains/crypto-test
+  environment:
+    name: $CI_BUILD_REF_NAME
+  only:
+    - staging
+    - production
+
+#https://gitlab.com/dylance/crypto-price-tracker.git
