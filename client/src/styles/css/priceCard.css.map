@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "priceCard.css",
+	"sources": [
+		"../scss/priceCard.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,MAAM,EAAE,SAAS;EACjB,KAAK,EAAE,GAAG,GAMX;EARD,AAIE,KAJG,CAIH,GAAG,CAAC;IACF,KAAK,EAAE,IAAI;IACX,YAAY,EAAE,IAAI,GACnB"
+}

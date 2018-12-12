@@ -27,7 +27,7 @@ class App extends Component {
   renderCoinbasePrices() {
     console.log("prices rendered")
     return createFragment({
-      exchange: <h1>Coinbase</h1>,
+      exchange: <h1 className="header-exchange">Coinbase</h1>,
       currencies: _.zipWith(this.state.pricesTicker, this.state.pricesStats, (ticker, stats) => {
         return <PriceCard key={ticker.coin} ticker={ticker} stats={stats}/>
       }
@@ -38,7 +38,7 @@ class App extends Component {
   renderBittrexPrices() {
     console.log("bittrex stats are",this.state.bittrexStats)
     return createFragment({
-  exchange: <h1>Bittrex</h1>,
+  exchange: <h1 className="header-exchange">Bittrex</h1>,
   currencies: this.state.bittrexStats.map(ticker => {
     return <PriceCard key={ticker.coin} ticker={ticker}/>
   }),
@@ -48,7 +48,7 @@ class App extends Component {
 renderPoloniexPrices() {
   console.log("bittrex stats are",this.state.bittrexStats)
   return createFragment({
-exchange: <h1>Poloniex</h1>,
+exchange: <h1 className="header-exchange">Poloniex</h1>,
 currencies: this.state.poloniexStats.map(ticker => {
   return <PriceCard key={ticker.coin} ticker={ticker}/>
 }),

@@ -5,5 +5,5 @@
 		"../scss/body.scss"
 	],
 	"names": [],
-	"mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,gBAAgB,EAAE,OAAO,GAC1B"
+	"mappings": "AAAA,AAAA,IAAI,CAAC;EACH,gBAAgB,EAAE,OAAO,GAC1B"
 }

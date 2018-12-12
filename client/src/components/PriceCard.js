@@ -12,7 +12,7 @@ const PriceCard = (props) => {
             <img alt={ticker.coin} src={imgPath + ticker.coin + '.png'}/>
             {ticker.coin}
           </li>
-          <li className="list-group-item">Price: {ticker.price}</li>
+          <li className="list-group-item">Price: {parseInt(ticker.price).toFixed(2)}</li>
           <li className="list-group-item">Volume: {ticker.volume}</li>
           <li className="list-group-item">24 hr high: {stats.high || ticker.high}</li>
           <li className="list-group-item">24 hr low: {stats.low || ticker.low}</li>
