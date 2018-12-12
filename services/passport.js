@@ -46,7 +46,7 @@ passport.use(
 passport.use(new CoinbaseStrategy({
     clientID: keys.coinbaseClientID,
     clientSecret: keys.coinbaseClientSecret,
-    callbackURL: "http://localhost:5000/auth/coinbase/callback",
+    callbackURL: "/auth/coinbase/callback",
     scope: ["user"]
   },
   (accessToken, refreshToken, profile, done) => {
