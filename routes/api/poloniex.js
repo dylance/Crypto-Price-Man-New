@@ -2,27 +2,23 @@ const axios = require("axios");
 const { multiSwap } = require("../../utils/apiUtils");
 
 module.exports = app => {
+  const coinsPricesURL = 'https://poloniex.com/public?command=returnTicker';
+  let prices = [];
   const swapData = [
     ["price", "last"],
     ["high", "high24hr"],
     ["low", "low24hr"],
-    ["volume", "quoteVolume"]
+    ["volume", "quoteVolume"],
   ];
 
-  function compare(a, b) {
-    a = parseInt(a.price);
-    b = parseInt(b.price);
+  setInterval(getPoloniexPrices, 10000);
 
-    if (a > b) return -1;
-    if (a < b) return 1;
-    return 0;
-  }
+  app.get("/api/poloniex/coins-ticker", (req, res) => {
+    res.send(prices);
+  });
 
-  let prices = [];
-
-  setInterval(() => {
-    axios
-      .get("https://poloniex.com/public?command=returnTicker")
+  function getPoloniexPrices() {
+    axios.get(coinsPricesURL)
       .then(response => {
         const props = Object.keys(response.data);
         let entries = Object.values(response.data);
@@ -40,11 +36,16 @@ module.exports = app => {
           multiSwap(coin, swapData);
         });
 
-        prices = entries.sort(compare);
+        prices = entries.sort(sortPrices);
       });
-  }, 10000);
+  }
 
-  app.get("/api/poloniex/coins-ticker", (req, res) => {
-    res.send(prices);
-  });
+  function sortPrices(a, b) {
+    a = parseInt(a.price);
+    b = parseInt(b.price);
+
+    if (a > b) return -1;
+    if (a < b) return 1;
+    return 0;
+  }
 };
