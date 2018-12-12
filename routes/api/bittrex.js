@@ -2,7 +2,7 @@ const axios = require('axios');
 const { swapProperty, multiSwap }= require('../../utils/apiUtils')
 
 module.exports = app => {
-  
+
   const coinList = ['BTC', 'BCH', 'ETH', 'ETC', 'LTC', 'XRP', 'ADA', 'ZEC', 'TRX', 'SC']
   const coinsUrl = 'https://bittrex.com/api/v1.1/public/getticker'
   let prices = [];
@@ -16,31 +16,27 @@ module.exports = app => {
     return 0;
   }
 
+// setInterval(() => {
+//   axios.all(coinList.map(
+//     coin => axios.get(coinsUrl, {
+//       params: {
+//         market: `USD-${coin}`
+//       }
+//     })))
+//     .then(axios.spread((...res) => {
+//       return res.map(({data}, key) => {
+//         data.result.coin = coinList[key]
+//         data.result.price = data.result.Last;
+//         delete data.result.Last;
+//         return data.result
+//     })
+//   }))
+//   .then(pricess => {
+//     prices = pricess
+//   })
+// }, 10000)
+
   setInterval(() => {
-    axios.all(coinList.map(
-      coin => axios.get(coinsUrl, {
-        params: {
-          market: `USD-${coin}`
-        }
-      })))
-      .then(axios.spread((...res) => {
-        return res.map(({data}, key) => {
-          data.result.coin = coinList[key]
-          data.result.price = data.result.Last;
-          delete data.result.Last;
-          return data.result
-      })
-    }))
-    .then(pricess => {
-      prices = pricess
-    })
-  }, 10000)
-
-  app.get('/api/bittrex/coins-ticker2', (req, res) => {
-    res.send(prices)
-  })
-
-  app.get('/api/bittrex/coins-ticker', (req , res) => {
     axios.get('https://bittrex.com/api/v1.1/public/getmarketsummaries')
       .then(({data}) => {
 
@@ -54,11 +50,18 @@ module.exports = app => {
 
         bittrex = bittrex.sort(compare);
 
-        bittrex = bittrex.filter(coin => (coin.MarketName != 'USDT' && coin.MarketName != 'TUSD'))
+        prices = bittrex.filter(coin => (coin.MarketName != 'USDT' && coin.MarketName != 'TUSD'))
 
-        res.send(bittrex);
+
 
       })
+    },10000)
+  // app.get('/api/bittrex/coins-ticker2', (req, res) => {
+  //   res.send(prices)
+  // })
+
+  app.get('/api/bittrex/coins-ticker', (req , res) => {
+    res.send(prices);
 
   })
 }
