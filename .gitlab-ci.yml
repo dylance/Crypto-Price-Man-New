@@ -18,7 +18,7 @@ deploy:
     - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylan-ellison/crypto-price-tracker.git /home/dylan/house/domains/cryptopriceman.com
     - ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com && npm install --silent && cd client && npm install --silent && CI=false npm run build
     #- ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com/client && npm install && npm run build
-    - ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com && mkdir config && cp /home/dylan/house/domains/keys/keys.js /home/dylan/house/domains/cryptopriceman.com/config/keys.js
+    - ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com && mkdir config && cp /home/dylan/house/domains/keys/keys.js /home/dylan/house/domains/cryptopriceman.com/config/
     - ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com && forever start index.js
     #- scp -r ./* ssh root@46.101.155.242:/home/dylan/house/domains/crypto-test
   environment:
