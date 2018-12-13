@@ -12,6 +12,7 @@ deploy:
     - mkdir -p ~/.ssh
     - echo "StrictHostKeyChecking no" > ~/.ssh/config
     - echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+    - ssh -t root@107.170.232.240 rm -rf /home/dylan/house/domains/cryptopricemanold.com
     - ssh -t root@107.170.232.240 mv /home/dylan/house/domains/cryptopriceman.com /home/dylan/house/domains/cryptorpricemanold.com
     - ssh -t root@107.170.232.240 forever stopall
     - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylan-ellison/crypto-price-tracker.git /home/dylan/house/domains/cryptopriceman.com
