@@ -9,7 +9,7 @@ const PriceCard = (props) => {
       <div className="card">
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
-            <img alt={ticker.coin} src={imgPath + ticker.coin + '.png'}/>
+            <img alt={ticker.coin} src={imgPath + ticker.coin.toLowerCase() + '.png'}/>
             {ticker.coin}
           </li>
           <li className="list-group-item">Price: {ticker.price}</li>
