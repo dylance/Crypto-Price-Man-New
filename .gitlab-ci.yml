@@ -12,15 +12,15 @@ deploy:
     - mkdir -p ~/.ssh
     - echo "StrictHostKeyChecking no" > ~/.ssh/config
     - echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-    - ssh -t root@107.170.232.240 rm -rf /var/www/cryptopricemanold.com
-    - ssh -t root@107.170.232.240 mv /var/www/cryptopriceman.com /var/www/cryptopricemanold.com
+    - ssh -t root@107.170.232.240 rm -rf /home/dylan/house/domains/cryptopricemanold.com
+    - ssh -t root@107.170.232.240 mv /home/dylan/house/domains/cryptopriceman.com /home/dylan/house/domains/cryptopricemanold.com
     - ssh -t root@107.170.232.240 forever stopall
-    - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylan-ellison/crypto-price-tracker.git /var/www/cryptopriceman.com
-    - ssh -t root@107.170.232.240 cd /var/www/cryptopriceman.com && npm install --silent && npm install && cd client && npm install  && npm install --silent && CI=false npm run build
-    #- ssh -t root@107.170.232.240 cd /var/www/cryptopriceman.com/client && npm install && npm run build
-    - ssh -t root@107.170.232.240 mkdir /var/www/cryptopriceman.com/config
-    - ssh -t root@107.170.232.240 cp /var/www/keys/keys.js /var/www/cryptopriceman.com/config/
-    - ssh -t root@107.170.232.240 forever start /var/www/cryptopriceman.com/index.js
+    - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylan-ellison/crypto-price-tracker.git /home/dylan/house/domains/cryptopriceman.com
+    - ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com && npm install --silent && npm install && cd client && npm install  && npm install --silent && CI=false npm run build
+    #- ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com/client && npm install && npm run build
+    - ssh -t root@107.170.232.240 mkdir /home/dylan/house/domains/cryptopriceman.com/config
+    - ssh -t root@107.170.232.240 cp /home/dylan/house/domains/keys/keys.js /home/dylan/house/domains/cryptopriceman.com/config/
+    - ssh -t root@107.170.232.240 forever start /home/dylan/house/domains/cryptopriceman.com/index.js
     #- scp -r ./* ssh root@46.101.155.242:/home/dylan/house/domains/crypto-test
   environment:
     name: $CI_BUILD_REF_NAME
