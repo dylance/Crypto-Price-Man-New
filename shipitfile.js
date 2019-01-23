@@ -25,7 +25,7 @@ module.exports = shipit => {
 
   shipit.blTask("copy_keys", function copy_keys() {
     return shipit.remote(
-      `mkdir ${shipit.releasePath}/config && cp /var/www/keys/keys.js ${
+      `cp /var/www/keys/keys.js ${
         shipit.releasePath
       }/config/keys.js`
     );
