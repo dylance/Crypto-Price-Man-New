@@ -1,33 +1,31 @@
+image: node:8.9.0
+
+cache:
+  paths:
+    - node_modules/
+
 stages:
   - deploy
 
+before_script:
+  # Check for ssh-agent + rsync and install if not present
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y  )'
+  - 'which rsync || ( apt-get update -y && apt-get install rsync -y )'
+  - eval $(ssh-agent -s)
+  # Inject the remote's private key
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  # Append keyscan output into known hosts
+  - ssh-keyscan 107.170.232.240 >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - npm install
+
 deploy:
   stage: deploy
-  image: node
   script:
-    - apt-get update -y && apt-get install openssh-client -y
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY"
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - echo "StrictHostKeyChecking no" > ~/.ssh/config
-    - echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-    - ssh -t root@107.170.232.240 rm -rf /home/dylan/house/domains/cryptopricemanold.com
-    - ssh -t root@107.170.232.240 mv /home/dylan/house/domains/cryptopriceman.com /home/dylan/house/domains/cryptopricemanold.com
-    - ssh -t root@107.170.232.240 forever stopall
-    - ssh -t root@107.170.232.240 git clone https://gitlab+deploy-token-32168:ETgmSAyw9X5sx98FxdV_@gitlab.com/dylan-ellison/crypto-price-tracker.git /home/dylan/house/domains/cryptopriceman.com
-    - ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com && npm install --silent && npm install && cd client && npm install  && npm install --silent && CI=false npm run build
-    #- ssh -t root@107.170.232.240 cd /home/dylan/house/domains/cryptopriceman.com/client && npm install && npm run build
-    - ssh -t root@107.170.232.240 mkdir /home/dylan/house/domains/cryptopriceman.com/config
-    - ssh -t root@107.170.232.240 cp /home/dylan/house/domains/keys/keys.js /home/dylan/house/domains/cryptopriceman.com/config/
-    - ssh -t root@107.170.232.240 forever start /home/dylan/house/domains/cryptopriceman.com/index.js
-  cache:
-    paths:
-      - node_modules/
-  environment:
-    name: $CI_BUILD_REF_NAME
+    - rsync -avuz --exclude=".*" $CI_PROJECT_DIR root@107.170.232.240:~
+    # Non interactive ssh gracefully reloads server
   only:
-    - staging
+    # Trigger deployments only from master branch
     - production
-
-#https://gitlab.com/dylance/crypto-price-tracker.git
