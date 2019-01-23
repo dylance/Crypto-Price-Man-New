@@ -35,11 +35,11 @@ module.exports = shipit => {
     return shipit.remote(`forever stopall`);
   });
 
-  shipit.blTask("start_server", function start_server() {
-    return shipit.remote(
-      `forever start /var/www/cryptopriceman.com/current/index.js`
-    );
-  });
+  // shipit.blTask("start_server", function start_server() {
+  //   return shipit.remote(
+  //     `forever start /var/www/cryptopriceman.com/current/index.js`
+  //   );
+  // });
 
   shipit.on("updated", function start_build() {
     return shipit.start(
@@ -55,7 +55,7 @@ module.exports = shipit => {
 
   shipit.on("deployed", function clear_caches() {
     shipit.remote(
-      "forever start /var/www/cryptopriceman.com/current/index.js"
+      "cd /var/www/cryptopriceman.com/current && forever start index.js"
     );
   });
 };
