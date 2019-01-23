@@ -35,7 +35,7 @@ app.use(express.static(__dirname + '/public'))
 
   // Express will serve index.html file if it doesn't recognize the route
   const path = require("path");
-  app.get("/", (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   })
 //}
