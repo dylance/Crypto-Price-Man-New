@@ -12,6 +12,6 @@ staging:
   - '[[ -f /.dockerenv ]] && mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - npm install
   - npm install -g shipit-cli@^3.0
-  - shipit staging deploy
+  - npx shipit staging deploy
   only:
   - production
