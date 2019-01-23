@@ -55,7 +55,7 @@ module.exports = shipit => {
 
   shipit.on("deployed", function clear_caches() {
     shipit.remote(
-      "forever /var/www/cryptopriceman.com/current/index.js"
+      "forever start /var/www/cryptopriceman.com/current/index.js"
     );
   });
 };
