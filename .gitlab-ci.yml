@@ -21,7 +21,7 @@ deploy:
     - ssh -t root@107.170.232.240 mkdir /home/dylan/house/domains/cryptopriceman.com/config
     - ssh -t root@107.170.232.240 cp /home/dylan/house/domains/keys/keys.js /home/dylan/house/domains/cryptopriceman.com/config/
     - ssh -t root@107.170.232.240 forever start /home/dylan/house/domains/cryptopriceman.com/index.js
-  artifacts:
+  cache:
     paths:
       - node_modules/
   environment:
