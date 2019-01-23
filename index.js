@@ -26,7 +26,7 @@ require("./routes/api/coinbase")(app);
 require("./routes/api/bittrex")(app);
 require("./routes/api/poloniex")(app);
 
-app.use(express.static(__dirname + '/public'))
+//app.use(express.static(__dirname + '/public'))
 
 //if (process.env.NODE_ENV === "production") {
   // Express will serve production assets if they exist
