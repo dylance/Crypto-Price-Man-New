@@ -21,7 +21,9 @@ deploy:
     - ssh -t root@107.170.232.240 mkdir /home/dylan/house/domains/cryptopriceman.com/config
     - ssh -t root@107.170.232.240 cp /home/dylan/house/domains/keys/keys.js /home/dylan/house/domains/cryptopriceman.com/config/
     - ssh -t root@107.170.232.240 forever start /home/dylan/house/domains/cryptopriceman.com/index.js
-    #- scp -r ./* ssh root@46.101.155.242:/home/dylan/house/domains/crypto-test
+  artifacts:
+    paths:
+      - node_modules
   environment:
     name: $CI_BUILD_REF_NAME
   only:
