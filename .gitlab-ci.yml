@@ -1,17 +1,22 @@
-image: node
-# This folder is cached between builds
-# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
-cache:
-  paths:
-  - node_modules/
+stages:
+  - deploy
 
-staging:
+deploy:
+  stage: deploy
+  image: node
   script:
-  - eval $(ssh-agent -s)
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
-  - '[[ -f /.dockerenv ]] && mkdir -p ~/.ssh && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  - npm install
-  - npm install -g shipit-cli@^3.0
-  - npx shipit staging deploy
+    - apt-get update -y && apt-get install openssh-client -y
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY"
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo "StrictHostKeyChecking no" > ~/.ssh/config
+    - echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+    - npm install
+    - npm install -g shipit-cli@^3.0
+    - npx shipit staging deploy
+  environment:
+    name: $CI_BUILD_REF_NAME
   only:
-  - production
+    - staging
+    - production
