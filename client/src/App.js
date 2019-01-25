@@ -25,7 +25,6 @@ class App extends Component {
   }
 
   renderCoinbasePrices() {
-    console.log("prices rendered")
     return createFragment({
       exchange: <h1 className="header-exchange">Coinbase</h1>,
       currencies: _.zipWith(this.state.pricesTicker, this.state.pricesStats, (ticker, stats) => {
@@ -36,7 +35,6 @@ class App extends Component {
   }
 
   renderBittrexPrices() {
-    console.log("bittrex stats are",this.state.bittrexStats)
     return createFragment({
   exchange: <h1 className="header-exchange">Bittrex</h1>,
   currencies: this.state.bittrexStats.map(ticker => {
@@ -46,7 +44,6 @@ class App extends Component {
 }
 
 renderPoloniexPrices() {
-  console.log("bittrex stats are",this.state.bittrexStats)
   return createFragment({
 exchange: <h1 className="header-exchange">Poloniex</h1>,
 currencies: this.state.poloniexStats.map(ticker => {
@@ -57,7 +54,6 @@ currencies: this.state.poloniexStats.map(ticker => {
   }
 
   componentDidMount() {
-    console.log("component mounted")
     Promise.all([
       getJSON(this.tickerURL), getJSON(this.statsURL), getJSON(this.bittrexURL), getJSON(this.poloniexURL) ])
         .then(([coins, ticker, bittrex, poloniex]) => this.setState({

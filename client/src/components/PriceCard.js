@@ -4,7 +4,6 @@ const imgPath = process.env.PUBLIC_URL + '/assets/img/logos/';
 const PriceCard = (props) => {
   const ticker = props.ticker
   const stats = props.stats || 2
-  console.log("stats.high is", stats)
   return (
       <div className="card">
         <ul className="list-group list-group-flush">
