@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Exchanges = () => {
   return (
     <div className="exchanges">
-      <a href="/">Coinbase</a>
-      <a href="/bittrex">Bittrex</a>
-      <a href="/poloniex">Poloniex</a>
+      <Link to="/">Coinbase</Link>
+      <Link to="/bittrex">Bittrex</Link>
+      <Link to="/poloniex">Poloniex</Link>
     </div>
 
   )

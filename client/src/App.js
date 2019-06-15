@@ -74,13 +74,16 @@ currencies: this.state.poloniexStats.map(ticker => {
     return (
       <React.Fragment>
         <Header/>
-        <Exchanges/>
+
         <BrowserRouter>
           <div>
-            <Route exact={true} path="/" render={() =>this.renderCoinbasePrices()} />
-            <Route exact={true} path="/bittrex" render={() => this.renderBittrexPrices()} />
-            <Route exact={true} path="/poloniex" render={() => this.renderPoloniexPrices()} />
-          </div>
+            <Exchanges/>
+            <div>
+              <Route exact={true} path="/" render={() =>this.renderCoinbasePrices()} />
+              <Route exact={true} path="/bittrex" render={() => this.renderBittrexPrices()} />
+              <Route exact={true} path="/poloniex" render={() => this.renderPoloniexPrices()} />
+            </div>
+          </div>  
         </BrowserRouter>
       </React.Fragment>);
   }
