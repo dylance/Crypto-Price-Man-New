@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import createFragment from "react-addons-create-fragment";
 import _ from 'lodash';
-import Navbar from './components/Navbar';
+
 import Header from './components/Header';
 import Exchanges from './components/Exchanges';
 import PriceCard from './components/PriceCard';
-import BittrexCard from './components/BittrexCard';
 import getJSON from './utils/getJSON';
 
 class App extends Component {
@@ -83,7 +82,7 @@ currencies: this.state.poloniexStats.map(ticker => {
               <Route exact={true} path="/bittrex" render={() => this.renderBittrexPrices()} />
               <Route exact={true} path="/poloniex" render={() => this.renderPoloniexPrices()} />
             </div>
-          </div>  
+          </div>
         </BrowserRouter>
       </React.Fragment>);
   }

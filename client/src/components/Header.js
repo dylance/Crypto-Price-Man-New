@@ -6,7 +6,7 @@ const Header = () => {
 
     <div className="head-image" style={{backgroundImage: "url(" + process.env.PUBLIC_URL + "assets/img/btc-header.jpg)"}}>
       <nav className="navbar navbar-dark justify-content-between">
-        <a className="navbar-brand">Crypto Price Man</a>
+        <a href="/" className="navbar-brand">Crypto Price Man</a>
         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
           <a href="/auth/google">Login</a>
         </button>
