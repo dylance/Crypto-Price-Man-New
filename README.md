@@ -25,3 +25,7 @@ Go to console.developers.google.com/
 
 - Go to mlab.com & register an account
 - Select creat new and add db.
+
+### Deploy with Ship it
+
+`npx shipit staging deploy`
