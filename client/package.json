@@ -4,20 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.1",
-    "bootstrap": "^4.3.1",
-    "bootstrap-scss": "^4.3.1",
     "concurrently": "^4.1.2",
-    "http-proxy-middleware": "^0.19.1",
-    "jquery": "^3.4.1",
-    "lodash": "^4.17.15",
-    "node-sass": "^4.12.0",
-    "popper.js": "^1.15.0",
-    "react": "^16.10.2",
+    "http-proxy-middleware": "^0.19.2",
+    "lodash": "^4.17.20",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
     "react-addons-create-fragment": "^15.6.2",
     "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.13.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1"
+    "react-scripts": "3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
