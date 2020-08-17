@@ -24,7 +24,17 @@ body {
   position: absolute;
   top: 0;
   opacity: .8;
-  width: 100%; }
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  align-items: center; }
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    padding-left: 18px; }
+  .navbar button {
+    margin-right: 20px; }
 
 .card {
   margin: 25px auto;
@@ -39,5 +49,3 @@ body {
   .exchanges a {
     width: 33.333%;
     text-align: center; }
-
-/*# sourceMappingURL=index.css.map */

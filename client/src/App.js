@@ -29,12 +29,14 @@ class App extends Component {
       getJSON(this.statsURL),
       getJSON(this.bittrexURL),
       getJSON(this.poloniexURL),
-    ]).then(([coins, ticker, bittrex, poloniex]) => this.setState({
-      pricesTicker: coins,
-      pricesStats: ticker,
-      bittrexStats: bittrex,
-      poloniexStats: poloniex,
-    }));
+    ]).then(([coins, ticker, bittrex, poloniex]) =>
+      this.setState({
+        pricesTicker: coins,
+        pricesStats: ticker,
+        bittrexStats: bittrex,
+        poloniexStats: poloniex,
+      }),
+    );
 
     // setInterval(() => {
     //   getJSON(this.tickerURL)
@@ -45,9 +47,11 @@ class App extends Component {
   renderCoinbasePrices = () => {
     const { pricesTicker, pricesStats } = this.state;
     return createFragment({
-      exchange: <h1 className='header-exchange'>Coinbase</h1>,
+      exchange: <h1 className="header-exchange">Coinbase</h1>,
       currencies: _.zipWith(pricesTicker, pricesStats, (ticker, stats) => {
-        return <PriceCard key={ticker.coin} ticker={ticker} stats={stats} />;
+        return ticker && stats ? (
+          <PriceCard key={ticker.coin} ticker={ticker} stats={stats} />
+        ) : null;
       }),
     });
   };
@@ -55,7 +59,7 @@ class App extends Component {
   renderBittrexPrices = () => {
     const { bittrexStats } = this.state;
     return createFragment({
-      exchange: <h1 className='header-exchange'>Bittrex</h1>,
+      exchange: <h1 className="header-exchange">Bittrex</h1>,
       currencies: bittrexStats.map((ticker) => {
         return <PriceCard key={ticker.coin} ticker={ticker} />;
       }),
@@ -65,7 +69,7 @@ class App extends Component {
   renderPoloniexPrices = () => {
     const { poloniexStats } = this.state;
     return createFragment({
-      exchange: <h1 className='header-exchange'>Poloniex</h1>,
+      exchange: <h1 className="header-exchange">Poloniex</h1>,
       currencies: poloniexStats.map((ticker) => {
         return <PriceCard key={ticker.coin} ticker={ticker} />;
       }),
@@ -82,17 +86,17 @@ class App extends Component {
             <div>
               <Route
                 exact={true}
-                path='/'
+                path="/"
                 render={() => this.renderCoinbasePrices()}
               />
               <Route
                 exact={true}
-                path='/bittrex'
+                path="/bittrex"
                 render={() => this.renderBittrexPrices()}
               />
               <Route
                 exact={true}
-                path='/poloniex'
+                path="/poloniex"
                 render={() => this.renderPoloniexPrices()}
               />
             </div>
