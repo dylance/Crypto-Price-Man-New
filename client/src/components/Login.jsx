@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react';
+import axios from 'axios';
 
 class Login extends Component {
   state = {
-    name: "",
+    name: '',
     loggedIn: false,
-    loading: true
+    loading: true,
   };
 
   componentDidMount() {
-    axios.get("/api/current_user").then(res => {
+    axios.get('/api/current_user').then((res) => {
       if (!res.data) {
         this.setState({
-          loading: false
+          loading: false,
         });
         return;
       }
-      const name = res.data.name;
+      const { name } = res.data;
       this.setState({
         name,
         loggedIn: true,
-        loading: false
+        loading: false,
       });
     });
   }
@@ -29,9 +29,9 @@ class Login extends Component {
     const { loading, name, loggedIn } = this.state;
 
     const authStyles = {
-      color: "#28a745",
-      marginLeft: "auto",
-      paddingRight: "36px"
+      color: '#28a745',
+      marginLeft: 'auto',
+      paddingRight: '36px',
     };
 
     if (loading) {
@@ -40,18 +40,22 @@ class Login extends Component {
 
     if (!loggedIn) {
       return (
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-          <a href="/auth/google">Login </a>
+        <button className='btn btn-outline-success my-2 my-sm-0' type='submit'>
+          <a href='/auth/google'>Login </a>
         </button>
       );
     }
     return (
-      <React.Fragment>
-        <span style={authStyles}>Welcome {name}!</span>
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-          <a href="/api/logout">Logout </a>
+      <>
+        <span style={authStyles}>
+          Welcome
+          {name}
+          !
+        </span>
+        <button className='btn btn-outline-success my-2 my-sm-0' type='submit'>
+          <a href='/api/logout'>Logout </a>
         </button>
-      </React.Fragment>
+      </>
     );
   }
 }

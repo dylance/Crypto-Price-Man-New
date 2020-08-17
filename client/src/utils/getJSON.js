@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-const getJSON = url => {
-  return axios.get(url)
-    .then(response => {
-      return response.data
+const getJSON = (url) => {
+  return axios
+    .get(url)
+    .then((response) => {
+      return response.data;
     })
-    .catch(function (error) {
-      console.log(error);
-      return error
-  });
-}
+    .catch((error) => {
+      return error;
+    });
+};
 
-export default getJSON
+export default getJSON;

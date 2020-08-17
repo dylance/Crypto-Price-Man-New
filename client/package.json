@@ -22,7 +22,9 @@
     "eject": "react-scripts eject",
     "sass:watch": "node-sass -w src/styles/scss -o src/styles/css",
     "sass:build": "node-sass src/styles/scss -o src/styles/css --source-map true",
-    "dev": "concurrently \"npm run start\" \"npm run sass:watch\""
+    "dev": "concurrently \"npm run start\" \"npm run sass:watch\"",
+    "lint": "./node_modules/eslint/bin/eslint.js ./src -f stylish --ext .js --ext .jsx",
+    "lint:fix": "prettier --write \"src/**/*.js*\" && eslint --fix \"src/**/*.js*\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,5 +34,16 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "prettier": "^2.0.5"
+  }
 }
