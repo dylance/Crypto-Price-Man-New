@@ -6,6 +6,7 @@ import _ from 'lodash';
 import Header from './components/Header';
 import Exchanges from './components/Exchanges';
 import PriceCard from './components/PriceCard';
+import Charts from './components/Charts';
 import getJSON from './utils/getJSON';
 
 class App extends Component {
@@ -84,21 +85,9 @@ class App extends Component {
           <div>
             <Exchanges />
             <div>
-              <Route
-                exact={true}
-                path="/"
-                render={() => this.renderCoinbasePrices()}
-              />
-              <Route
-                exact={true}
-                path="/bittrex"
-                render={() => this.renderBittrexPrices()}
-              />
-              <Route
-                exact={true}
-                path="/poloniex"
-                render={() => this.renderPoloniexPrices()}
-              />
+              <Charts url="/api/coinbase/candlesTicker" />
+              <Charts url="/api/coinbase/eth-ticker" />
+              <Charts url="/api/coinbase/ltc-ticker" />
             </div>
           </div>
         </BrowserRouter>
