@@ -1,0 +1,15 @@
+module.exports = {
+  googleClientID: '',
+  googleClientSecret: '',
+  coinbaseClientID: '',
+  coinbaseClientSecret: '',
+  coinbaseAPISecret: '',
+  coinbaseAPIKey: '',
+  mongoURI: '',
+  cookieKey: '',
+  coinbaseProSecret: '',  
+  coinbaseProKey: '',
+  coinbaseProPassphrase: '',
+  coinbaseKey: '',
+  coinbaseSecret: '',
+}
