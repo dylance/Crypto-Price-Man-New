@@ -10,20 +10,21 @@ module.exports = app => {
     coin => `https://api.pro.coinbase.com/products/${coin}-usd/ticker`
   );
 
-  setInterval(() => {
-    axios
-      .all(coinUrls.map(url => axios.get(url)))
-      .then(response => {
-        return response.map((item, key) => {
-          item.data.coin = coinList[key];
-          item.data.price = roundDecimals(item.data.price);
-          item.data.volume = roundDecimals(item.data.volume);
-          return item.data;
-        });
-      })
-      .then(prices => {
-        pricess = prices;
+  setInterval(async () => {
+    try {
+      const responses = await axios.all(coinUrls.map(url => axios.get(url)));
+
+      const formattedPrices = responses.map(({data}, key) => {
+        data.coin = coinList[key];
+        data.price = roundDecimals(data.price);
+        data.volume = roundDecimals(data.volume);
+        return data;
       });
+
+      pricess = formattedPrices;
+    } catch (err) {
+      console.error('The error is: ', err);
+    }
   }, 10000);
 
   app.get('/api/coinbase/coins-ticker', (req, res) => {
