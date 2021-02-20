@@ -7,7 +7,7 @@ const getAccessSign = async (method, path) => {
   const timeStamp = await getTimestamp();
 
   const preHash = timeStamp + method + path;
-  const key = Buffer(coinbaseProSecret, 'base64');
+  const key = Buffer.from(coinbaseProSecret, 'base64');
   const hmac = crypto.createHmac('sha256', key);
   const accessSign = hmac.update(preHash).digest('base64');
 
