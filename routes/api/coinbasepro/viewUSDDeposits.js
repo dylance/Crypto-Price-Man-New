@@ -7,9 +7,9 @@ const {
   coinbaseProPassphrase,
 } = require('../../../config/keys');
 
-const getCoinMarketCapData = async () => {
+const viewUSDDeposits = async () => {
   try {
-    const afterDate = new Date('2020:01:01').toISOString(); //"2011-12-19T15:28:46.493Z"
+    const afterDate = new Date('2021:01:01').toISOString(); //"2011-12-19T15:28:46.493Z"
     const path = `/transfers?type=deposit&before=${afterDate}`;
     const method = 'GET';
     const { accessSign, timeStamp } = await getAccessSign(method, path);
@@ -26,6 +26,8 @@ const getCoinMarketCapData = async () => {
     };
 
     const { data } = await axios(config);
+
+    //console.log("The data is: ", data);
     const deposits = data.filter(deposit => {
       return deposit.details.is_instant_usd === 'true';
     });
@@ -46,7 +48,5 @@ const getCoinMarketCapData = async () => {
     console.log('The error is: ', err);
   }
 };
-
-getCoinMarketCapData();
 
 //getTimestamp();

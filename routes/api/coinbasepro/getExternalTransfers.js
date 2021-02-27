@@ -6,9 +6,10 @@ const {
   coinbaseProPassphrase,
 } = require('../../../config/keys');
 
-const getProducts = async () => {
+const getExternalTransfers = async (product = 'BTC-USD', type = 'deposit') => {
   try {
-    const path = `/products/`;
+    const path = `/transfers?type=${type}`;
+    //const path = `/accounts`;
     const method = 'GET';
     const { accessSign, timeStamp } = await getAccessSign(method, path);
 
@@ -25,8 +26,9 @@ const getProducts = async () => {
 
     const { data } = await axios(config);
 
-    console.log('The data is: ', data);
+    return data;
   } catch (err) {
     console.log('The error is: ', err);
   }
 };
+module.exports = getExternalTransfers;

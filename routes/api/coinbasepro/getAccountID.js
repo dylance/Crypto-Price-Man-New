@@ -6,9 +6,9 @@ const {
   coinbaseProPassphrase,
 } = require('../../../config/keys');
 
-const getProducts = async () => {
+const getAccountID = async (currency = 'BTC') => {
   try {
-    const path = `/products/`;
+    const path = `/accounts`;
     const method = 'GET';
     const { accessSign, timeStamp } = await getAccessSign(method, path);
 
@@ -23,10 +23,14 @@ const getProducts = async () => {
       },
     };
 
-    const { data } = await axios(config);
+    const { data: accounts } = await axios(config);
+    account = accounts.find(account => {
+      return account.currency === currency;
+    });
 
-    console.log('The data is: ', data);
+    return account.id;
   } catch (err) {
     console.log('The error is: ', err);
   }
 };
+module.exports = getAccountID;

@@ -26,14 +26,11 @@ const getTrades = async (tradePair = 'BTC-USD') => {
     const { data } = await axios(config);
 
     const tradesThisYear = data.filter(trade => {
-      let startDate = new Date('2021-01-01T03:24:00');
+      let startDate = new Date('2020-01-01T03:24:00');
       console.log("The start date is: ", startDate)
       let tradeDate = new Date(trade.created_at);
-      return (tradeDate > startDate && trade.side === 'buy');
+      return (tradeDate < startDate && trade.side === 'buy');
     });
-
-//     price: '49200.00000000',
-// size: '0.01000001',
 
     const total = tradesThisYear.reduce((acc, deposit) => {
       console.log('The deposit amount is: ', deposit.amount);
@@ -52,10 +49,8 @@ const getTrades = async (tradePair = 'BTC-USD') => {
     console.log("The amount is: ", amount);
     console.log("The average is: ", average);
 
-    //console.log('The data is: ', data);
+
   } catch (err) {
     console.log('The error is: ', err);
   }
 };
-
-getTrades();
