@@ -38,5 +38,3 @@ const getCandles = async (product = 'BTC-USD') => {
   }
 };
 module.exports = getCandles;
-
-getCandles();
