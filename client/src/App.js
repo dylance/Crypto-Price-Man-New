@@ -6,6 +6,7 @@ import _ from 'lodash';
 import Header from './components/Header';
 import Exchanges from './components/Exchanges';
 import PriceCard from './components/PriceCard';
+import AccountInfo from './components/AccountInfo';
 import getJSON from './utils/getJSON';
 
 class App extends Component {
@@ -83,6 +84,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Exchanges />
+            <AccountInfo />
             <div>
               <Route
                 exact={true}
@@ -99,6 +101,7 @@ class App extends Component {
                 path="/poloniex"
                 render={() => this.renderPoloniexPrices()}
               />
+              <Route exact={true} path="/account" render={() => AccountInfo} />
             </div>
           </div>
         </BrowserRouter>

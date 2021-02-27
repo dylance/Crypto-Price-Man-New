@@ -16,4 +16,11 @@ body {
   text-align: center;
   color: #28a745; }
 
-/*# sourceMappingURL=App.css.map */
+table {
+  border: 1px solid black;
+  width: 95%;
+  margin: 0 auto; }
+  table th, table td {
+    border: 1px solid black;
+    height: 36px;
+    font-size: 24px; }

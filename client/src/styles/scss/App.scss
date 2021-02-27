@@ -20,3 +20,17 @@ body {
   text-align: center;
   color: #28a745;
 }
+
+table {
+  border: 1px solid black;
+  width: 95%;
+  margin: 0 auto;
+
+  th, td {
+    border: 1px solid black;
+    height: 36px;
+    font-size: 24px;
+
+  }
+
+}
