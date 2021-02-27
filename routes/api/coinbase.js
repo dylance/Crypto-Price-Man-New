@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { roundDecimals } = require('../../utils/apiUtils');
 const getCandles = require('./coinbasepro/getCandles');
+const getCostBasis = require('./coinbasepro/getCostBasis');
 
 module.exports = app => {
   let json = null;
@@ -14,7 +15,7 @@ module.exports = app => {
     try {
       const responses = await axios.all(coinUrls.map(url => axios.get(url)));
 
-      const formattedPrices = responses.map(({data}, key) => {
+      const formattedPrices = responses.map(({ data }, key) => {
         data.coin = coinList[key];
         data.price = roundDecimals(data.price);
         data.volume = roundDecimals(data.volume);
@@ -68,6 +69,12 @@ module.exports = app => {
       .catch(error => {
         console.log('The error is:', error);
       });
+  });
+
+  app.get('/api/coinbase/sorted', async (req, res) => {
+    const sorted = await getCostBasis();
+    console.log('sorted is: ', sorted);
+    await res.send(sorted);
   });
 
   app.get('/api/coinbase/everything', (req, res) => {
