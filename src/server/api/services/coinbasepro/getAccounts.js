@@ -1,10 +1,4 @@
-const axios = require('axios');
-
-const getAccessSign = require('./getAccessSign');
-const {
-  coinbaseProKey,
-  coinbaseProPassphrase,
-} = require('../../../config/keys');
+const { makeCoinbaseProRequest } = require('./helpers');
 
 /**
  * Get List of trading accounts from the profile of the API key
@@ -27,20 +21,9 @@ const getAccounts = async (showAccountsWithBalance = false) => {
   try {
     const path = `/accounts`;
     const method = 'GET';
-    const { accessSign, timeStamp } = await getAccessSign(method, path);
+    const { data: accounts }  = await makeCoinbaseProRequest(path, method);
+    console.log("The accounts are: ", accounts);
 
-    const config = {
-      method: method,
-      url: `https://api.pro.coinbase.com${path}`,
-      headers: {
-        'CB-ACCESS-KEY': coinbaseProKey,
-        'CB-ACCESS-SIGN': accessSign,
-        'CB-ACCESS-TIMESTAMP': timeStamp,
-        'CB-ACCESS-PASSPHRASE': coinbaseProPassphrase,
-      },
-    };
-
-    const { data: accounts } = await axios(config);
 
     const accountsWithNumbers = accounts.map(account => {
       return {
