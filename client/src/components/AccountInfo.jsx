@@ -26,34 +26,41 @@ const AccountInfo = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <table>
-        <tr>
-          <th>Date</th>
-          <th>USD</th> <th>type</th> <th>price</th>
-          <th>total at time</th>
-          <th>total bought</th>
-          <th>total sold</th>
-          <th>cost / coin</th>
-        </tr>
-
-        {transactions.map((trans) => {
-          return (
-            <tr style={{}}>
-              <td>{trans.created_at.substring(0, 10)} </td>
-              <td>{parseFloat(trans.usdAmmount).toFixed(2)}</td>
-              <td>{trans.type}</td>
-              <td>{parseFloat(trans.price).toFixed(2)}</td>
-              <td>{trans.totalAtTheTime && trans.totalAtTheTime.toFixed(2)}</td>
-              <td>{trans.totalBought && trans.totalBought.toFixed(2)}</td>
-              <td>{trans.totalSold && trans.totalSold.toFixed(2)}</td>
-              <td>
-                {(
-                  (trans.totalBought - trans.totalSold) /
-                  parseFloat(trans.totalAtTheTime)
-                ).toFixed(2)}
-              </td>
-            </tr>
-          );
-        })}
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>USD</th>
+            <th>type</th>
+            <th>price</th>
+            <th>total at time</th>
+            <th>total bought</th>
+            <th>total sold</th>
+            <th>cost / coin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((trans) => {
+            return (
+              <tr key={trans.created_at} style={{}}>
+                <td>{trans.created_at.substring(0, 10)} </td>
+                <td>{parseFloat(trans.usdAmmount).toFixed(2)}</td>
+                <td>{trans.type}</td>
+                <td>{parseFloat(trans.price).toFixed(2)}</td>
+                <td>
+                  {trans.totalAtTheTime && trans.totalAtTheTime.toFixed(2)}
+                </td>
+                <td>{trans.totalBought && trans.totalBought.toFixed(2)}</td>
+                <td>{trans.totalSold && trans.totalSold.toFixed(2)}</td>
+                <td>
+                  {(
+                    (trans.totalBought - trans.totalSold) /
+                    parseFloat(trans.totalAtTheTime)
+                  ).toFixed(2)}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );
