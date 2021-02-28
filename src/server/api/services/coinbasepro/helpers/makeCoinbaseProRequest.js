@@ -4,13 +4,19 @@ const getAccessSign = require('./getAccessSign');
 const {
   coinbaseProKey,
   coinbaseProPassphrase,
-} = require('../../../config/keys');
+} = require('../../../../config/keys');
 
-const getExternalTransfers = async (product = 'BTC-USD', type = 'deposit') => {
+/**
+ * Makes requst to coinbase pro REST API
+ * See coinbase pro documentation - https://docs.pro.coinbase.com
+ * @function
+ * @param {string} path - relative path of coinbase pro endpoint
+ * @param {string} method - HTTP method of request
+ * @returns {object} - express response
+ *
+ */
+const makeCoinbaseProRequest = async (path, method) => {
   try {
-    const path = `/transfers?type=${type}`;
-    //const path = `/accounts`;
-    const method = 'GET';
     const { accessSign, timeStamp } = await getAccessSign(method, path);
 
     const config = {
@@ -24,11 +30,12 @@ const getExternalTransfers = async (product = 'BTC-USD', type = 'deposit') => {
       },
     };
 
-    const { data } = await axios(config);
+    const response = await axios(config);
 
-    return data;
+    return response;
   } catch (err) {
     console.log('The error is: ', err);
   }
 };
-module.exports = getExternalTransfers;
+
+module.exports = makeCoinbaseProRequest;

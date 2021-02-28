@@ -1,14 +1,15 @@
 const axios = require('axios');
 
-const getAccessSign = require('./getAccessSign');
+const { getAccessSign } = require('./helpers');
 const {
   coinbaseProKey,
   coinbaseProPassphrase,
 } = require('../../../config/keys');
 
-const getAccountID = async (currency = 'BTC') => {
+const getExternalTransfers = async (product = 'BTC-USD', type = 'deposit') => {
   try {
-    const path = `/accounts`;
+    const path = `/transfers?type=${type}`;
+    //const path = `/accounts`;
     const method = 'GET';
     const { accessSign, timeStamp } = await getAccessSign(method, path);
 
@@ -23,14 +24,11 @@ const getAccountID = async (currency = 'BTC') => {
       },
     };
 
-    const { data: accounts } = await axios(config);
-    account = accounts.find(account => {
-      return account.currency === currency;
-    });
+    const { data } = await axios(config);
 
-    return account.id;
+    return data;
   } catch (err) {
     console.log('The error is: ', err);
   }
 };
-module.exports = getAccountID;
+module.exports = getExternalTransfers;

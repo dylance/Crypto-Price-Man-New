@@ -1,7 +1,7 @@
 const axios = require('axios');
 const util = require('util');
 
-const getAccessSign = require('./getAccessSign');
+const { getAccessSign } = require('./helpers');
 const {
   coinbaseProKey,
   coinbaseProPassphrase,

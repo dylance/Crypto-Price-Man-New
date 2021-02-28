@@ -1,9 +1,9 @@
 const axios = require('axios');
 
-const getAccessSign = require('./getAccessSign');
+const { getAccessSign } = require('./helpers');
 const getAccountID = require('./getAccountID');
 const getExternalTransfers = require('./getExternalTransfers');
-const getSumOfArrayValues = require('./getSumOfArrayValues');
+const { getSumOfArrayValues } = require('./helpers');
 const getRenTrades = require('./getRenTrades');
 const {
   coinbaseProKey,
