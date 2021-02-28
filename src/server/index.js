@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
-require('./models/User'); // User must come before passport
-require('./services/passport');
+require('./api/models/User'); // User must come before passport
+require('./api/services/passport');
 
 //mongoose.connect(keys.mongoURI , { useNewUrlParser: true });
 
@@ -20,17 +20,17 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./routes/auth/coinbaseAuthRoutes')(app);
-require('./routes/auth/googleAuthRoutes')(app);
-require('./routes/api/coinbase')(app);
-require('./routes/api/bittrex')(app);
-require('./routes/api/poloniex')(app);
+require('./api/routes/auth/coinbaseAuthRoutes')(app);
+require('./api/routes/auth/googleAuthRoutes')(app);
+require('./api/routes/api/coinbase')(app);
+require('./api/routes/api/bittrex')(app);
+require('./api/routes/api/poloniex')(app);
 
 //app.use(express.static(__dirname + '/public'))
 
 //if (process.env.NODE_ENV === "production") {
 // Express will serve production assets if they exist
-app.use(express.static('client/build'));
+app.use(express.static('../../../client/build'));
 
 // Express will serve index.html file if it doesn't recognize the route
 const path = require('path');
