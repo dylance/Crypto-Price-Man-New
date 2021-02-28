@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
 const getTimestamp = require('./getTimestamp');
-const { coinbaseSecret } = require('../../../config/keys');
+const { coinbaseSecret } = require('../../../../config/keys');
 
 const getAccessSign = async (method, path) => {
   const timeStamp = await getTimestamp();
