@@ -1,7 +1,6 @@
 const axios = require('axios');
 const { roundDecimals } = require('../../utils/apiUtils');
-const getCandles = require('./coinbasepro/getCandles');
-const getCostBasis = require('./coinbasepro/getCostBasis');
+const { getCandles, getCostBasis } = require('../../services/coinbasepro');
 
 module.exports = app => {
   let json = null;
