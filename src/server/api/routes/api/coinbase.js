@@ -71,7 +71,8 @@ module.exports = app => {
   });
 
   app.get('/api/coinbase/sorted', async (req, res) => {
-    const sorted = await getCostBasis();
+    const { coin, baseCurrency } = req.query
+    const sorted = await getCostBasis(coin, baseCurrency);
     console.log('sorted is: ', sorted);
     await res.send(sorted);
   });

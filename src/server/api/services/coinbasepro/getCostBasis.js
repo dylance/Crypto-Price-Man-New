@@ -1,19 +1,12 @@
-const axios = require('axios');
-
-const { getAccessSign } = require('./helpers');
 const getAccountID = require('./getAccountID');
 const getExternalTransfers = require('./getExternalTransfers');
 const { getSumOfArrayValues } = require('./helpers');
 const getRenTrades = require('./getRenTrades');
-const {
-  coinbaseProKey,
-  coinbaseProPassphrase,
-} = require('../../../config/keys');
 
 const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
   try {
     const accountID = await getAccountID(coin);
-    console.log('The account id is: ', accountID);
+
     const deposits = await getExternalTransfers(coin, 'deposit');
     const btcDeposits = deposits
       .filter(deposit => {
@@ -26,13 +19,7 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
           size: deposit.amount,
           created_at: deposit.created_at,
         };
-
-
       });
-    //console.log("The eth deposits are: ", btcDeposits)
-    const depositTotal = getSumOfArrayValues(btcDeposits, 'amount');
-    //console.log('The btcDeposits are: ', btcDeposits);
-    //console.log("The deposit total is: ", depositTotal);
 
     const withdrawals = await getExternalTransfers(coin, 'withdraw');
     const btcWithdrawals = withdrawals
@@ -48,18 +35,12 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
         };
       });
 
-    //const withdrawalTotal = getSumOfArrayValues(btcWithdrawals, 'amount');
-    // console.log('The btcWithdrawals are: ', btcWithdrawals);
-    // console.log("The withdrawal total is: ", withdrawalTotal);
-
     const btcTrades = await getRenTrades(`${coin}-${baseCurrency}`);
-    //console.log("The btc trades are: ", btcTrades);
 
     ///////////
     // run reduce on all trades to compare deposit and withdrawals and trade balances
     /////////////////////////////////////////////////
-    //////////////////////////////
-    ////////////////////////////////
+
     const btcBuys = btcTrades
       .filter(trade => {
         return trade.side === 'buy';
@@ -87,10 +68,6 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
           type: trade.side,
         };
       });
-      console.log("The btc sells are: ", btcSells);
-
-    // console.log("The buys are: ", btcBuys);
-    // console.log("The sells are: ", btcSells);
 
     const allData = [
       ...btcDeposits,
@@ -109,41 +86,81 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
     });
 
     const totalShouldBe = sorted.reduce((acc, deposit) => {
-      console.log("The acc is: ", acc);
       if (deposit.type === 'withdraw' || deposit.type === 'sell') {
         return acc - parseFloat(deposit.size);
       }
       if (deposit.type === 'deposit' || deposit.type === 'buy') {
         return acc + parseFloat(deposit.size);
       }
-      console.log("********************************** un reachable code hit")
+      console.log('********************************** un reachable code hit');
       return acc;
     }, 0);
 
+    console.log('totalShouldBe is: ', totalShouldBe);
+    console.log('Sorted is: ', sorted);
 
-    console.log("totalShouldBe is: ", totalShouldBe);
-    console.log("Sorted is: ", sorted)
+    const transactionsWithPrices = sorted.map(transaction => {
+      if (transaction.type === 'deposit') {
+        return {
+          ...transaction,
+          price: 140.0,
+          size: parseFloat(transaction.size),
+          usdAmmount: 140,
+        };
+      }
 
-    return sorted;
-    //console.log('All data is: ', sorted);
+    if (transaction.type === 'withdraw') {
+      return {
+        ...transaction,
+        price: 0,
+        size: parseFloat(transaction.size),
+        usdAmmount: 0
+      }
+    }
+      return {
+        ...transaction,
+        price: parseFloat(transaction.price),
+        size: parseFloat(transaction.size),
+      };
+    });
 
-    // const path = `/transfers?type=deposit`;
-    // //const path = `/accounts`;
-    // const method = 'GET';
-    // const { accessSign, timeStamp } = await getAccessSign(method, path);
 
-    // const config = {
-    //   method: method,
-    //   url: `https://api.pro.coinbase.com${path}`,
-    //   headers: {
-    //     'CB-ACCESS-KEY': coinbaseProKey,
-    //     'CB-ACCESS-SIGN': accessSign,
-    //     'CB-ACCESS-TIMESTAMP': timeStamp,
-    //     'CB-ACCESS-PASSPHRASE': coinbaseProPassphrase,
-    //   },
-    // };
+      let totalAtTheTime = 0;
+      let totalBought = 0;
+      let totalSold = 0;
+      const transactionsWithTotals = transactionsWithPrices.map(transaction => {
+        const { type, size, usdAmmount } = transaction;
+        if (type === 'deposit' || type === 'buy') {
+          totalAtTheTime += parseFloat(size);
+          totalBought += parseFloat(usdAmmount);
+        }
 
-    // const { data } = await axios(config);
+        if (type === 'sell') {
+          totalAtTheTime -= parseFloat(size);
+          totalSold += parseFloat(usdAmmount);
+        }
+
+        if (type === 'withdraw') {
+          totalAtTheTime -= parseFloat(size);
+        }
+        return {
+          ...transaction,
+          totalAtTheTime: parseFloat(totalAtTheTime),
+          totalBought: parseFloat(totalBought),
+          totalSold: parseFloat(totalSold),
+        };
+      });
+
+      const objExample = {
+        created_at: '2020-11-07T02:06:27.548Z',
+        price: '464.00000000',
+        size: '0.40933794',
+        usdAmmount: 189.93280416000002,
+        type: 'buy',
+      };
+
+
+    return transactionsWithTotals;
   } catch (err) {
     console.log('The catch error is: ', err);
   }
