@@ -25,7 +25,7 @@ const getProducts = async () => {
 
     const { data } = await axios(config);
 
-    console.log('The data is: ', data);
+    return data;
   } catch (err) {
     console.log('The error is: ', err);
   }
