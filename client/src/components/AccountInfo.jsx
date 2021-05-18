@@ -7,7 +7,7 @@ const AccountInfo = () => {
       try {
         console.log('was the use effect called');
         const data = await axios.get(
-          '/api/coinbase/sorted?coin=LTC&baseCurrency=USD',
+          '/api/coinbase/sorted?coin=BTC&baseCurrency=USD',
         );
         setTransactions(data.data);
         console.log('The data is: ', data);
@@ -24,7 +24,16 @@ const AccountInfo = () => {
   // cost basis in dollars
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        paddingBottom: '200px',
+        paddingTop: '80px',
+        margin: 'auto',
+        maxWidth: '1200px',
+      }}
+    >
       <table>
         <thead>
           <tr>

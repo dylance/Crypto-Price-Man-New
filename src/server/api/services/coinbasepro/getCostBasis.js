@@ -1,7 +1,7 @@
 const getAccountID = require('./getAccountID');
 const getExternalTransfers = require('./getExternalTransfers');
 const { getSumOfArrayValues } = require('./helpers');
-const getRenTrades = require('./getRenTrades');
+const getAllTrades = require('./getAllTrades');
 
 const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
   try {
@@ -35,7 +35,7 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
         };
       });
 
-    const btcTrades = await getRenTrades(`${coin}-${baseCurrency}`);
+    const btcTrades = await getAllTrades(coin, baseCurrency);
 
     ///////////
     // run reduce on all trades to compare deposit and withdrawals and trade balances
@@ -70,11 +70,13 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
       });
 
     const allData = [
-      ...btcDeposits,
-      ...btcWithdrawals,
+      // @TODO fix below so its working :)
+      //    ...btcDeposits,
+      //  ...btcWithdrawals,
       ...btcBuys,
       ...btcSells,
     ];
+
     const sorted = allData.sort(function(a, b) {
       const isTrue = a.created_at > b.created_at;
 
@@ -92,12 +94,11 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
       if (deposit.type === 'deposit' || deposit.type === 'buy') {
         return acc + parseFloat(deposit.size);
       }
-      console.log('********************************** un reachable code hit');
+
       return acc;
     }, 0);
 
-    console.log('totalShouldBe is: ', totalShouldBe);
-    console.log('Sorted is: ', sorted);
+
 
     const transactionsWithPrices = sorted.map(transaction => {
       if (transaction.type === 'deposit') {
@@ -109,14 +110,14 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
         };
       }
 
-    if (transaction.type === 'withdraw') {
-      return {
-        ...transaction,
-        price: 0,
-        size: parseFloat(transaction.size),
-        usdAmmount: 0
+      if (transaction.type === 'withdraw') {
+        return {
+          ...transaction,
+          price: 0,
+          size: parseFloat(transaction.size),
+          usdAmmount: 0,
+        };
       }
-    }
       return {
         ...transaction,
         price: parseFloat(transaction.price),
@@ -124,41 +125,39 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
       };
     });
 
+    let totalAtTheTime = 0;
+    let totalBought = 0;
+    let totalSold = 0;
+    const transactionsWithTotals = transactionsWithPrices.map(transaction => {
+      const { type, size, usdAmmount } = transaction;
+      if (type === 'deposit' || type === 'buy') {
+        totalAtTheTime += parseFloat(size);
+        totalBought += parseFloat(usdAmmount);
+      }
 
-      let totalAtTheTime = 0;
-      let totalBought = 0;
-      let totalSold = 0;
-      const transactionsWithTotals = transactionsWithPrices.map(transaction => {
-        const { type, size, usdAmmount } = transaction;
-        if (type === 'deposit' || type === 'buy') {
-          totalAtTheTime += parseFloat(size);
-          totalBought += parseFloat(usdAmmount);
-        }
+      if (type === 'sell') {
+        totalAtTheTime -= parseFloat(size);
+        totalSold += parseFloat(usdAmmount);
+      }
 
-        if (type === 'sell') {
-          totalAtTheTime -= parseFloat(size);
-          totalSold += parseFloat(usdAmmount);
-        }
-
-        if (type === 'withdraw') {
-          totalAtTheTime -= parseFloat(size);
-        }
-        return {
-          ...transaction,
-          totalAtTheTime: parseFloat(totalAtTheTime),
-          totalBought: parseFloat(totalBought),
-          totalSold: parseFloat(totalSold),
-        };
-      });
-
-      const objExample = {
-        created_at: '2020-11-07T02:06:27.548Z',
-        price: '464.00000000',
-        size: '0.40933794',
-        usdAmmount: 189.93280416000002,
-        type: 'buy',
+      if (type === 'withdraw') {
+        totalAtTheTime -= parseFloat(size);
+      }
+      return {
+        ...transaction,
+        totalAtTheTime: parseFloat(totalAtTheTime),
+        totalBought: parseFloat(totalBought),
+        totalSold: parseFloat(totalSold),
       };
+    });
 
+    const objExample = {
+      created_at: '2020-11-07T02:06:27.548Z',
+      price: '464.00000000',
+      size: '0.40933794',
+      usdAmmount: 189.93280416000002,
+      type: 'buy',
+    };
 
     return transactionsWithTotals;
   } catch (err) {
@@ -173,4 +172,4 @@ module.exports = getCostBasis;
 // Use account ID of bitcoin to get bitcoin deposits
 
 // use this to get trades
-// node getRenTrades.js
+// node getAllTrades.js

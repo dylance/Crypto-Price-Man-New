@@ -8,7 +8,7 @@ const getCandles = require('./getCandles');
 const getCostBasis = require('./getCostBasis');
 const getExternalTransfers = require('./getExternalTransfers');
 const getProducts = require('./getProducts');
-const getRenTrades = require('./getRenTrades');
+const getAllTrades = require('./getAllTrades');
 const getTrades = require('./getTrades');
 const viewUSDDeposits = require('./viewUSDDeposits');
 
@@ -19,7 +19,7 @@ module.exports = {
   getCostBasis,
   getExternalTransfers,
   getProducts,
-  getRenTrades,
+  getAllTrades,
   getTrades,
   viewUSDDeposits,
 };
