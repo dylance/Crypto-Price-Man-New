@@ -28,4 +28,6 @@ module.exports = app => {
 
   // @TODO very likely will need to deprecate/change this also from 2018
   app.get('/api/coinbase/everything', coinbaseController.getEverything);
+
+  app.get('/api/coinbase/accounts', coinbaseController.getAccounts);
 };

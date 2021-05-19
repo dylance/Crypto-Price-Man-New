@@ -21,9 +21,7 @@ const getAccounts = async (showAccountsWithBalance = false) => {
   try {
     const path = `/accounts`;
     const method = 'GET';
-    const { data: accounts }  = await makeCoinbaseProRequest(path, method);
-    console.log("The accounts are: ", accounts);
-
+    const { data: accounts } = await makeCoinbaseProRequest(path, method);
 
     const accountsWithNumbers = accounts.map(account => {
       return {
@@ -35,9 +33,9 @@ const getAccounts = async (showAccountsWithBalance = false) => {
     });
 
     if (showAccountsWithBalance) {
-      const accountWithBalances =  accountsWithNumbers.filter(account => {
-        return account.balance > 0;
-      });
+      const accountWithBalances = accountsWithNumbers.filter(
+        account => account.balance > 0
+      );
 
       return accountWithBalances;
     }

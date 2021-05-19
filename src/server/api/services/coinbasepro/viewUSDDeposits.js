@@ -48,5 +48,3 @@ const viewUSDDeposits = async () => {
     console.log('The error is: ', err);
   }
 };
-
-//getTimestamp();
