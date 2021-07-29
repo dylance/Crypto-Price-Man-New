@@ -98,8 +98,6 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
       return acc;
     }, 0);
 
-
-
     const transactionsWithPrices = sorted.map(transaction => {
       if (transaction.type === 'deposit') {
         return {
@@ -152,7 +150,7 @@ const getCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
     });
 
     const objExample = {
-      created_at: '2020-11-07T02:06:27.548Z',
+      created_at: '2021-01-01T02:06:27.548Z',
       price: '464.00000000',
       size: '0.40933794',
       usdAmmount: 189.93280416000002,

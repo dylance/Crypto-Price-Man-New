@@ -35,7 +35,7 @@ const getHistoricPrices = async (quoteCurrency, baseCurrency, startDate) => {
     //console.log("The data is: ", data);
 
   } catch (err) {
-    console.log('The error is: ', err);
+    console.log('The error is3 ', err);
   }
 };
 

@@ -11,11 +11,11 @@ const {
  * See coinbase pro documentation - https://docs.pro.coinbase.com
  * @function
  * @param {string} path - relative path of coinbase pro endpoint
- * @param {string} method - HTTP method of request
+ * @param {string} method - HTTP method of request @TODO how to show default method???
  * @returns {object} - express response
- *
+ * @TODO error handling in here????
  */
-const makeCoinbaseProRequest = async (path, method) => {
+const makeCoinbaseProRequest = async (path, method = 'GET') => {
   try {
     const { accessSign, timeStamp } = await getAccessSign(method, path);
 
@@ -34,7 +34,7 @@ const makeCoinbaseProRequest = async (path, method) => {
 
     return response;
   } catch (err) {
-    console.log('The error is: ', err);
+    //console.log('The error is: 5', err);
   }
 };
 
