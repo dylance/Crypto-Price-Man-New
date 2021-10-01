@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Header from './components/Header';
-import Exchanges from './components/Exchanges';
-import AccountInfo from './components/AccountInfo';
+import { Header, AccountInfo, Balances } from './components';
 
 const App = () => {
   return (
     <>
       <Header />
-      <AccountInfo />
+      <Balances />
+      <AccountInfo coin="BTC" baseCurrency="USD" />
+      <AccountInfo coin="ETH" baseCurrency="USD" />
     </>
   );
 };
