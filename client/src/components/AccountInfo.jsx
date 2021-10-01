@@ -12,7 +12,7 @@ export const AccountInfo = ({ coin, baseCurrency = 'USD' }) => {
         );
 
         if (data && data.length > 0) {
-          setTransactions(data.data);
+          setTransactions(data);
         }
       } catch (err) {}
     }
