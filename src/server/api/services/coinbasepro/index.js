@@ -7,6 +7,7 @@ const getAccounts = require('./getAccounts');
 const getCandles = require('./getCandles');
 const getCostBasis = require('./getCostBasis');
 const getExternalTransfers = require('./getExternalTransfers');
+const getPriceTicker = require('./getPriceTicker');
 const getProducts = require('./getProducts');
 const getAllTrades = require('./getAllTrades');
 const getTrades = require('./getTrades');
@@ -18,6 +19,7 @@ module.exports = {
   getCandles,
   getCostBasis,
   getExternalTransfers,
+  getPriceTicker,
   getProducts,
   getAllTrades,
   getTrades,

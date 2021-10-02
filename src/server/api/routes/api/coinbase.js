@@ -30,4 +30,5 @@ module.exports = app => {
   app.get('/api/coinbase/everything', coinbaseController.getEverything);
 
   app.get('/api/coinbase/accounts', coinbaseController.getAccounts);
+  app.get('/api/coinbase/price-ticker', coinbaseController.getProductPriceTicker);
 };

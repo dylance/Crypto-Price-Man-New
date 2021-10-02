@@ -21,7 +21,7 @@ const makeCoinbaseProRequest = async (path, method = 'GET') => {
 
     const config = {
       method: method,
-      url: `https://api.pro.coinbase.com${path}`,
+      url: `https://api.exchange.coinbase.com${path}`,
       headers: {
         'CB-ACCESS-KEY': coinbaseProKey,
         'CB-ACCESS-SIGN': accessSign,

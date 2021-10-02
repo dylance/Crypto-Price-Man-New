@@ -1,16 +1,9 @@
 import React from 'react';
 
-import { Header, AccountInfo, Balances } from './components';
+import { Balances } from './components';
 
 const App = () => {
-  return (
-    <>
-      <Header />
-      <Balances />
-      <AccountInfo coin="BTC" baseCurrency="USD" />
-      <AccountInfo coin="ETH" baseCurrency="USD" />
-    </>
-  );
+  return <Balances />;
 };
 
 export default App;
