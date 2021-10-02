@@ -9,7 +9,8 @@ const getPriceTicker = async (productId = 'BTC-USD') => {
 
     return data;
   } catch (err) {
-    console.log('The getPriceTicker error is: ', err);
+    console.log("The error is: ", err)
+    return err
   }
 };
 

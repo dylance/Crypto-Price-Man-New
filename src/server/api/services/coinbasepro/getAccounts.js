@@ -18,7 +18,6 @@ const { makeCoinbaseProRequest } = require('./helpers');
  * @property {boolean} trading_enabled - is trading enabled for this account
  */
 const getAccounts = async (showAccountsWithBalance = false) => {
-  console.log("Show accounts with balance is: ", showAccountsWithBalance)
   try {
     const path = `/accounts`;
     const method = 'GET';
@@ -33,10 +32,7 @@ const getAccounts = async (showAccountsWithBalance = false) => {
       };
     });
 
-  //  console.log("the accounts are: ", accounts)
-
     if (showAccountsWithBalance === 'true') {
-      console.log("is this hit???")
       const accountWithBalances = accountsWithNumbers.filter(
         account => account.balance > 0
       );

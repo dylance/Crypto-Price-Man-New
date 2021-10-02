@@ -1,9 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 
-import { CurrencyPrice } from '../components';
+import { BalancesHeaders, AssetsPieChart } from '../components';
+
+const BalancesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 200px;
+  padding-top: 80px;
+  margin: auto;
+  max-width: 1200px;
+`;
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'setAccounts':
+      return {
+        accounts: action.data.map((data) => {
+          return { ...data };
+        }),
+      };
+    case 'setAccountPrice':
+      const updatedAccounts = state.accounts.map((account) => {
+        if (account.currency === action.data.currency) {
+          return action.data.account;
+        }
+
+        return account;
+      });
+
+      return { accounts: updatedAccounts };
+    default:
+      throw new Error();
+  }
+}
 
 export const Balances = () => {
+  const [state, dispatch] = useReducer(reducer, { accounts: [] });
+  //const [accounts, setAccounts] = useState([]);
   useEffect(() => {
     async function getAccountsWithBalance() {
       try {
@@ -11,7 +46,7 @@ export const Balances = () => {
           '/api/coinbase/accounts?showAccountsWithBalance=true',
         );
 
-        setAccounts([...res.data]);
+        dispatch({ data: res.data, type: 'setAccounts' });
       } catch (err) {
         console.log('The error is: ', err);
       }
@@ -19,46 +54,71 @@ export const Balances = () => {
     getAccountsWithBalance();
   }, []);
 
-  const [acounts, setAccounts] = useState([]);
-  console.log('The accounts are: ', acounts);
+  const getTotal = (accounts, currency) => {
+    return accounts.reduce((previousValue, currentValue) => {
+      if (currentValue.currency === currency) {
+        return previousValue + (0 + currentValue.available);
+      }
+      if (currentValue[`${currency}Price`]) {
+        return (
+          previousValue +
+          (0 + currentValue[`${currency}Price`]) * (0 + currentValue.available)
+        );
+      }
+      return previousValue;
+    }, 0);
+  };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        paddingBottom: '200px',
-        paddingTop: '80px',
-        margin: 'auto',
-        maxWidth: '1200px',
-      }}
-    >
-      <table>
-        <thead>
-          <tr>
-            <th>Currency</th>
-            <th>Balance</th>
-            <th>USD Price</th>
-            <th>BTC Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {acounts.map(({ currency, balance }) => {
-            return (
-              <tr key={currency} style={{}}>
-                <td>{currency} </td>
-                <td>{balance.toFixed(2)}</td>
-                <td>
-                  <CurrencyPrice currency={currency} />
-                </td>
-                <td>
-                  <CurrencyPrice currency={currency} baseCurrency="BTC" />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <BalancesWrapper>
+        <h3>USD Total: {getTotal(state.accounts, 'USD').toFixed(2)}</h3>
+        <h3>BTC Total: {getTotal(state.accounts, 'BTC').toFixed(4)}</h3>
+        <table>
+          <BalancesHeaders
+            headers={[
+              'Asset',
+              'Amount',
+              'USD Price',
+              'USD Value',
+              'BTC Price',
+              'BTC Value',
+            ]}
+          />
+          <tbody>
+            {state.accounts.map((account) => {
+              const { currency, balance } = account;
+              return (
+                <tr key={currency} style={{}}>
+                  <td>{currency} </td>
+                  <td>{balance.toFixed(3)}</td>
+                  <td>{account.USDPrice ? account.USDPrice : '--.--'}</td>
+                  <td>
+                    {account.USDPrice
+                      ? (
+                          (0 + account.USDPrice) *
+                          (0 + account.balance)
+                        ).toFixed(2)
+                      : '--.--'}
+                  </td>
+                  <td>{account.BTCPrice ? account.BTCPrice : '--.--'}</td>
+                  <td>
+                    {account.BTCPrice
+                      ? (
+                          (0 + account.BTCPrice) *
+                          (0 + account.balance)
+                        ).toFixed(4)
+                      : '--.--'}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </BalancesWrapper>
+      <div style={{ width: '100vw', height: '700px' }}>
+        <AssetsPieChart accounts={state.accounts} />
+      </div>
+    </>
   );
 };

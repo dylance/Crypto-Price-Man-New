@@ -32,8 +32,10 @@ const makeCoinbaseProRequest = async (path, method = 'GET') => {
 
     const response = await axios(config);
 
+
     return response;
   } catch (err) {
+    return ({errorMessage: err})
     //console.log('The error is: 5', err);
   }
 };
