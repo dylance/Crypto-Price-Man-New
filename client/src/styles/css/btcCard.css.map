@@ -1,9 +1,0 @@
-{
-	"version": 3,
-	"file": "btcCard.css",
-	"sources": [
-		"../scss/btcCard.scss"
-	],
-	"names": [],
-	"mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,MAAM,EAAE,SAAS;EACjB,KAAK,EAAE,GAAG,GACX"
-}

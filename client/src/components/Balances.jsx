@@ -13,6 +13,22 @@ const BalancesWrapper = styled.div`
   max-width: 1200px;
 `;
 
+const TableWrapper = styled.table`
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin: 0 auto;
+
+  th,
+  td {
+    text-align: center;
+    height: 42px;
+    padding: 10px;
+    font-size: 24px;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+  }
+`;
+
 function reducer(state, action) {
   switch (action.type) {
     case 'setAccounts':
@@ -74,7 +90,7 @@ export const Balances = () => {
       <BalancesWrapper>
         <h3>USD Total: {getTotal(state.accounts, 'USD').toFixed(2)}</h3>
         <h3>BTC Total: {getTotal(state.accounts, 'BTC').toFixed(4)}</h3>
-        <table>
+        <TableWrapper>
           <BalancesHeaders
             headers={[
               'Asset',
@@ -114,7 +130,7 @@ export const Balances = () => {
               );
             })}
           </tbody>
-        </table>
+        </TableWrapper>
       </BalancesWrapper>
       <div style={{ width: '100vw', height: '700px' }}>
         <AssetsPieChart accounts={state.accounts} />

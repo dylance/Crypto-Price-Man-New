@@ -47,9 +47,9 @@ export const AssetsPieChart = ({ accounts = [] }) => {
             ((0 + account.available) * (0 + account.USDPrice)).toFixed(2),
           );
 
-    // if (account.currency === 'BTC') {
-    //   value = value + 1.4535 * (0 + account.USDPrice);
-    // }
+    if (account.currency === 'BTC') {
+      value = value + 1.4535 * (0 + account.USDPrice);
+    }
 
     return { name: account.currency, value };
   });

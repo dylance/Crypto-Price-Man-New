@@ -1,7 +1,6 @@
 import React from 'react';
 
 export const BalancesHeaders = ({ headers = [] }) => {
-  console.log('The headers are: ', headers);
   return (
     <thead>
       <tr>
