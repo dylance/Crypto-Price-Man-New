@@ -4,9 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "0.22.0",
-    "concurrently": "6.3.0",
     "http-proxy-middleware": "2.0.1",
-    "lodash": "4.17.21",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-router-dom": "5.2.0",
@@ -23,9 +21,6 @@
     "lint": "./node_modules/eslint/bin/eslint.js ./src -f stylish --ext .js --ext .jsx",
     "lint:fix": "prettier --write \"src/**/*.js*\" && eslint --fix \"src/**/*.js*\""
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -41,6 +36,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "prettier": "2.3.2"
+    "prettier": "2.4.1"
   }
 }

@@ -2,7 +2,8 @@ import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import { BalancesHeaders, AssetsPieChart } from '../components';
+import { BalancesHeaders } from './BalancesHeaders';
+import { AssetsPieChart } from './AssetsPieChart';
 
 const BalancesWrapper = styled.div`
   display: flex;
@@ -54,12 +55,12 @@ function reducer(state, action) {
 
 export const Balances = () => {
   const [state, dispatch] = useReducer(reducer, { accounts: [] });
-  //const [accounts, setAccounts] = useState([]);
+  // const [accounts, setAccounts] = useState([]);
   useEffect(() => {
     async function getAccountsWithBalance() {
       try {
         const res = await axios.get(
-          '/api/coinbase/accounts?showAccountsWithBalance=true',
+          '/api/coinbase/accounts?showAccountsWithBalance=true'
         );
 
         dispatch({ data: res.data, type: 'setAccounts' });
@@ -75,10 +76,10 @@ export const Balances = () => {
       if (currentValue.currency === currency) {
         return previousValue + (0 + currentValue.available);
       }
-      if (currentValue[`${currency}Price`]) {
+      if (currentValue[`${ currency }Price`]) {
         return (
-          previousValue +
-          (0 + currentValue[`${currency}Price`]) * (0 + currentValue.available)
+          previousValue
+          + (0 + currentValue[`${ currency }Price`]) * (0 + currentValue.available)
         );
       }
       return previousValue;
@@ -88,8 +89,14 @@ export const Balances = () => {
   return (
     <>
       <BalancesWrapper>
-        <h3>USD Total: {getTotal(state.accounts, 'USD').toFixed(2)}</h3>
-        <h3>BTC Total: {getTotal(state.accounts, 'BTC').toFixed(4)}</h3>
+        <h3>
+          USD Total:
+          {getTotal(state.accounts, 'USD').toFixed(2)}
+        </h3>
+        <h3>
+          BTC Total:
+          {getTotal(state.accounts, 'BTC').toFixed(4)}
+        </h3>
         <TableWrapper>
           <BalancesHeaders
             headers={[
@@ -106,24 +113,27 @@ export const Balances = () => {
               const { currency, balance } = account;
               return (
                 <tr key={currency} style={{}}>
-                  <td>{currency} </td>
+                  <td>
+                    {currency}
+                    {' '}
+                  </td>
                   <td>{balance.toFixed(3)}</td>
                   <td>{account.USDPrice ? account.USDPrice : '--.--'}</td>
                   <td>
                     {account.USDPrice
                       ? (
-                          (0 + account.USDPrice) *
-                          (0 + account.balance)
-                        ).toFixed(2)
+                        (0 + account.USDPrice)
+                          * (0 + account.balance)
+                      ).toFixed(2)
                       : '--.--'}
                   </td>
                   <td>{account.BTCPrice ? account.BTCPrice : '--.--'}</td>
                   <td>
                     {account.BTCPrice
                       ? (
-                          (0 + account.BTCPrice) *
-                          (0 + account.balance)
-                        ).toFixed(4)
+                        (0 + account.BTCPrice)
+                          * (0 + account.balance)
+                      ).toFixed(4)
                       : '--.--'}
                   </td>
                 </tr>
