@@ -13,22 +13,27 @@ module.exports = async function(req, res, next) {
 
         return {
           ...account,
-          USDPrice: USDPrice ? USDPrice.price : undefined,
+          USDPrice: USDPrice ? parseFloat(USDPrice.price) : undefined,
           USDTotal: USDPrice
-            ? ((0 + USDPrice.price) * (0 + account.balance)).toFixed(3)
-            : 0,
-          BTCPrice: BTCPrice ? BTCPrice.price : undefined,
+            ? parseFloat(((0 + USDPrice.price) * (0 + account.balance)).toFixed(3))
+            : undefined,
+          BTCPrice: BTCPrice ? parseFloat(BTCPrice.price) : undefined,
+          BTCTotal: BTCPrice
+            ? parseFloat(((0 + BTCPrice.price) * (0 + account.balance)).toFixed(3))
+            : undefined,
         };
       })
     );
 
-    const sortedAccounts = accountsWithPrices.sort((firstEl, secondEl) => {
-      return firstEl.USDTotal < secondEl.USDTotal ? 1 : -1;
+    const descendingSortedAccounts = accountsWithPrices.sort((a, b) => {
+       //   > 0 sort b before a
+       //   < 0 sort a before b
+      return (b.USDTotal || b.balance) > (a.USDTotal || a.balance) ? 1 : -1;
     });
 
-    await res.send(sortedAccounts);
+    await res.send(descendingSortedAccounts);
   } catch (err) {
-    console.log('the error is: ', error);
+    console.log('the error is: ', err);
     next(err);
   }
 };
