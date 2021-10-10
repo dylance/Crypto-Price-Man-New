@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
-} from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 const COLORS = [
   '#0088FE',
@@ -10,7 +8,7 @@ const COLORS = [
   '#FF8042',
   '#FF1234',
   '#CC1234',
-  '#001234',
+  '#f2a900',
 ];
 
 const RADIAN = Math.PI / 180;
@@ -31,47 +29,62 @@ const renderCustomizedLabel = ({
     <text
       x={x}
       y={y}
-      fill='white'
+      fill="white"
       textAnchor={x > cx ? 'start' : 'end'}
-      dominantBaseline='central'
+      dominantBaseline="central"
     >
-      {`${ (percent * 100).toFixed(1) }%`}
+      {`${(percent * 100).toFixed(1)}%`}
     </text>
   );
 };
 
 export const AssetsPieChart = ({ accounts = [] }) => {
+  let total = 0;
+
   const data = accounts.map((account) => {
-    let value = account.currency === 'USD'
-      ? account.available
-      : parseFloat(
-        ((0 + account.available) * (0 + account.USDPrice)).toFixed(2)
-      );
+    let value =
+      account.currency === 'USD'
+        ? account.available
+        : parseFloat(
+            ((0 + account.available) * (0 + account.USDPrice)).toFixed(2),
+          );
 
     if (account.currency === 'BTC') {
       value += 1.4535 * (0 + account.USDPrice);
     }
 
+    if (account.currency === 'ETH') {
+      value =
+        0 +
+        parseFloat(
+          ((0 + account.available) * (0 + account.USDPrice)).toFixed(2),
+        );
+    }
+    total += value;
+
     return { name: account.currency, value };
   });
+  console.log('The data is: ', data);
+
+  console.log('The total is: ', total);
 
   return (
-    <>
-      <ResponsiveContainer width='100%' height='100%'>
-        <PieChart width={700} height={700}>
+    <div style={{ width: '300px', height: '300px' }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart width={300} height={300}>
           <Pie
             data={data}
-            cx='50%'
-            cy='50%'
+            cx="50%"
+            cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={200}
-            fill='#8884d8'
-            dataKey='value'
+            outerRadius={140}
+            fill="#8884d8"
+            dataKey="value"
           >
             {data.map((entry, index) => (
               <Cell
-                key={`cell-${ index }`}
+                key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
               />
             ))}
@@ -79,6 +92,6 @@ export const AssetsPieChart = ({ accounts = [] }) => {
           <Tooltip />
         </PieChart>
       </ResponsiveContainer>
-    </>
+    </div>
   );
 };

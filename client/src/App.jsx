@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Balances } from './components';
+import { Assets } from './components';
 
 const App = () => {
-  return <Balances />;
+  return <Assets />;
 };
 
 export default App;

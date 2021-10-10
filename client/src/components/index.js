@@ -1,5 +1,5 @@
 export * from './AccountInfo';
-export * from './Balances';
+export * from './Assets';
 export * from './BalancesHeaders';
 export * from './Header';
 export * from './AssetsPieChart';
