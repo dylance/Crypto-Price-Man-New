@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { BalancesHeaders } from './BalancesHeaders';
 
@@ -10,7 +11,7 @@ const TableWrapper = styled.table`
 
   th,
   td {
-    text-align: center;
+    text-align: left;
     padding: 10px;
     font-size: 24px;
     border-bottom: 1px solid rgba(224, 224, 224, 1);
@@ -35,7 +36,9 @@ export const AssetsTable = ({ assets = [] }) => {
           const { currency, balance } = account;
           return (
             <tr key={currency}>
-              <td>{currency} </td>
+              <td>
+                <Link to={`/coin/${currency}`}>{currency}</Link>
+              </td>
               <td>{balance.toFixed(3)}</td>
               <td>{account.USDPrice ? account.USDPrice : '--.--'}</td>
               <td>

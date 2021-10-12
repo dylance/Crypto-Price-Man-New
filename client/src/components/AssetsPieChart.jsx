@@ -42,24 +42,13 @@ export const AssetsPieChart = ({ accounts = [] }) => {
   let total = 0;
 
   const data = accounts.map((account) => {
-    let value =
+    const value =
       account.currency === 'USD'
         ? account.available
         : parseFloat(
             ((0 + account.available) * (0 + account.USDPrice)).toFixed(2),
           );
 
-    if (account.currency === 'BTC') {
-      value += 1.4535 * (0 + account.USDPrice);
-    }
-
-    if (account.currency === 'ETH') {
-      value =
-        0 +
-        parseFloat(
-          ((0 + account.available) * (0 + account.USDPrice)).toFixed(2),
-        );
-    }
     total += value;
 
     return { name: account.currency, value };

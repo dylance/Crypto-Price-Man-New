@@ -11,9 +11,8 @@ const TableWrapper = styled.table`
   th,
   td {
     text-align: center;
-    height: 42px;
     padding: 10px;
-    font-size: 24px;
+    font-size: 20px;
     border-bottom: 1px solid rgba(224, 224, 224, 1);
   }
 `;
@@ -36,6 +35,16 @@ export const AccountInfo = ({ coin, baseCurrency = 'USD' }) => {
     fetchData();
   }, [baseCurrency, coin]);
 
+  if (transactions.length === 0) {
+    return (
+      <h2>
+        No transactions with
+        {coin} and base of
+        {baseCurrency}
+      </h2>
+    );
+  }
+
   return (
     <div
       style={{
@@ -57,7 +66,7 @@ export const AccountInfo = ({ coin, baseCurrency = 'USD' }) => {
           <thead>
             <tr>
               <th>Date</th>
-              <th>USD</th>
+              <th>{baseCurrency}</th>
               <th>type</th>
               <th>price</th>
               <th>total at time</th>
@@ -86,9 +95,8 @@ export const AccountInfo = ({ coin, baseCurrency = 'USD' }) => {
                   <td>{trans.type}</td>
                   <td>
                     {parseFloat(trans.price)
-                      .toFixed(3)
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      .toFixed(6)
+                      .toString()}
                   </td>
                   <td>
                     {trans.totalAtTheTime && trans.totalAtTheTime.toFixed(3)}
@@ -96,10 +104,7 @@ export const AccountInfo = ({ coin, baseCurrency = 'USD' }) => {
                   <td>{trans.size && trans.size.toFixed(3)}</td>
                   <td>
                     {trans.totalBought &&
-                      trans.totalBought
-                        .toFixed(3)
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      trans.totalBought.toFixed(6).toString()}
                   </td>
                   <td>{trans.totalSold && trans.totalSold.toFixed(3)}</td>
                   <td>
@@ -107,9 +112,8 @@ export const AccountInfo = ({ coin, baseCurrency = 'USD' }) => {
                       (trans.totalBought - trans.totalSold) /
                       parseFloat(trans.totalAtTheTime)
                     )
-                      .toFixed(3)
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      .toFixed(6)
+                      .toString()}
                   </td>
                 </tr>
               );
