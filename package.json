@@ -25,9 +25,5 @@
     "passport-google-oauth20": "^1.0.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
-  },
-  "devDependencies": {
-    "shipit-cli": "^4.2.0",
-    "shipit-deploy": "^4.1.4"
   }
 }
