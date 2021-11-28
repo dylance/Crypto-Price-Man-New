@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { getBaseCurrencyTotal } from '../helpers/getBaseCurrencyTotal';
+import { getBaseCurrencyTotal } from '../util';
 
 const TotalWrapper = styled.div`
   display: flex;
@@ -20,8 +20,7 @@ export const AssetsTotals = ({ assets = [] }) => {
   return (
     <TotalWrapper>
       <h3>
-        USD Total:
-        {usdTotal.toFixed(2)}
+        USD Total: ${usdTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
       </h3>
       <h3>
         BTC Total:
