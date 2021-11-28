@@ -26,10 +26,10 @@ const getTrades = async (tradePair = 'BTC-USD') => {
 
     const average = total / amount;
 
-    console.log('The trades this year are: ', tradesThisYear);
-    console.log('The total is: ', total);
-    console.log('The amount is: ', amount);
-    console.log('The average is: ', average);
+    //console.log('The trades this year are: ', tradesThisYear);
+    //console.log('The total is: ', total);
+    //console.log('The amount is: ', amount);
+    //console.log('The average is: ', average);
   } catch (err) {
     console.log('The error is: ', err);
   }

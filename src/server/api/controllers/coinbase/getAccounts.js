@@ -3,7 +3,7 @@ const { getAccounts, getPriceTicker } = require('../../services/coinbasepro');
 module.exports = async function(req, res, next) {
   try {
     const { showAccountsWithBalance } = req.query;
-
+    // @TODO this broke when coinbase pro was down. need better error handling
     const accounts = await getAccounts(showAccountsWithBalance);
 
     const accountsWithPrices = await Promise.all(

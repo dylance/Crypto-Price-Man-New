@@ -10,8 +10,10 @@ const getExternalTransfers = require('./getExternalTransfers');
 const getPriceTicker = require('./getPriceTicker');
 const getProducts = require('./getProducts');
 const getAllTrades = require('./getAllTrades');
+const getTradesCostBasis = require('./getTradesCostBasis');
 const getTrades = require('./getTrades');
 const viewUSDDeposits = require('./viewUSDDeposits');
+const getHistoricPrice = require('./getHistoricPrice');
 
 module.exports = {
   getAccountID,
@@ -22,6 +24,8 @@ module.exports = {
   getPriceTicker,
   getProducts,
   getAllTrades,
+  getTradesCostBasis,
   getTrades,
   viewUSDDeposits,
+  getHistoricPrice,
 };
