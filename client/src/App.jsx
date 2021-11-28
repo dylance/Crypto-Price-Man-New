@@ -6,8 +6,8 @@ import { Assets, CoinStats } from './components';
 const App = () => {
   return (
     <Router>
-      <Route exact path="/" component={Assets} />
-      <Route path="/coin/:coinName" component={CoinStats} />
+      <Route exact path='/' component={Assets} />
+      <Route path='/coin/:coinName' component={CoinStats} />
     </Router>
   );
 };

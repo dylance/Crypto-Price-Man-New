@@ -14,10 +14,9 @@
 export const getBaseCurrencyTotal = (assets, baseCurrency = 'USD') => {
   return assets.reduce((sum, asset) => {
     const { currency, balance } = asset;
-    const baseCurrencyAmount =
-      currency === baseCurrency
-        ? balance
-        : (asset[`${baseCurrency}Price`] || 0) * balance;
+    const baseCurrencyAmount = currency === baseCurrency
+      ? balance
+      : (asset[`${ baseCurrency }Price`] || 0) * balance;
     return sum + baseCurrencyAmount;
   }, 0);
 };

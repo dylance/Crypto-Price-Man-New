@@ -1,5 +1,7 @@
 import React from 'react';
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
+} from 'recharts';
 
 const COLORS = [
   '#0088FE',
@@ -19,7 +21,6 @@ const renderCustomizedLabel = ({
   innerRadius,
   outerRadius,
   percent,
-  index,
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -29,11 +30,11 @@ const renderCustomizedLabel = ({
     <text
       x={x}
       y={y}
-      fill="white"
+      fill='white'
       textAnchor={x > cx ? 'start' : 'end'}
-      dominantBaseline="central"
+      dominantBaseline='central'
     >
-      {`${(percent * 100).toFixed(1)}%`}
+      {`${ (percent * 100).toFixed(1) }%`}
     </text>
   );
 };
@@ -42,12 +43,11 @@ export const AssetsPieChart = ({ accounts = [] }) => {
   let total = 0;
 
   const data = accounts.map((account) => {
-    const value =
-      account.currency === 'USD'
-        ? account.available
-        : parseFloat(
-            ((0 + account.available) * (0 + account.USDPrice)).toFixed(2),
-          );
+    const value = account.currency === 'USD'
+      ? account.available
+      : parseFloat(
+        ((0 + account.available) * (0 + account.USDPrice)).toFixed(2)
+      );
 
     total += value;
 
@@ -59,21 +59,21 @@ export const AssetsPieChart = ({ accounts = [] }) => {
 
   return (
     <div style={{ width: '300px', height: '300px' }}>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width='100%' height='100%'>
         <PieChart width={300} height={300}>
           <Pie
             data={data}
-            cx="50%"
-            cy="50%"
+            cx='50%'
+            cy='50%'
             labelLine={false}
             label={renderCustomizedLabel}
             outerRadius={140}
-            fill="#8884d8"
-            dataKey="value"
+            fill='#8884d8'
+            dataKey='value'
           >
             {data.map((entry, index) => (
               <Cell
-                key={`cell-${index}`}
+                key={`cell-${ entry.name }`}
                 fill={COLORS[index % COLORS.length]}
               />
             ))}

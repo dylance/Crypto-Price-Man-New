@@ -4,10 +4,10 @@ export const formatCurrency = (number, decimals = 2, baseCurrency = 'USD') => {
   }
 
   if (baseCurrency === 'USD') {
-    return `$${parseFloat(number)
+    return `$${ parseFloat(number)
       .toFixed(decimals)
       .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ',') }`;
   }
-  return `${parseFloat(number).toFixed(decimals).toString()} ${baseCurrency}`;
+  return `${ parseFloat(number).toFixed(decimals).toString() } ${ baseCurrency }`;
 };

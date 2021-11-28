@@ -8,8 +8,8 @@ export const CoinStats = () => {
 
   return (
     <div>
-      <AllTrades coin={coinName} baseCurrency="USD" />
-      <AllTrades coin={coinName} baseCurrency="BTC" />
+      <AllTrades coin={coinName} baseCurrency='USD' />
+      <AllTrades coin={coinName} baseCurrency='BTC' />
     </div>
   );
 };

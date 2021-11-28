@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 
 import { fetchData } from '../hooks/fetchData';
@@ -36,8 +35,8 @@ export const Assets = () => {
     USDTotal: number | undefined;
   }
    */
-  const [{ data: assets, isLoading, isError }, doFetch] = fetchData(
-    '/api/coinbase/accounts?showAccountsWithBalance=true',
+  const [{ data: assets }] = fetchData(
+    '/api/coinbase/accounts?showAccountsWithBalance=true'
   );
 
   return (

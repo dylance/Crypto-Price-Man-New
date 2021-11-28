@@ -20,7 +20,8 @@ export const AssetsTotals = ({ assets = [] }) => {
   return (
     <TotalWrapper>
       <h3>
-        USD Total: ${usdTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+        USD Total: $
+        {usdTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
       </h3>
       <h3>
         BTC Total:
