@@ -1,9 +1,11 @@
 export const coinFullNames = {
   BTC: 'Bitcoin',
   ETH: 'Ethereum',
-  DOT: 'Pokadot',
+  DOT: 'Polkadot',
   ADA: 'Cardano',
   LINK: 'Chainlink',
   MATIC: 'Polygon',
   ICP: 'Internet Computer',
+  SOL: 'Solana',
+  AVAX: 'Avalanche',
 };
