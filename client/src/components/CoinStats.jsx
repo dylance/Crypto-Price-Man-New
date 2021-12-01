@@ -1,15 +1,17 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { AllTrades } from './AllTrades';
 
 export const CoinStats = () => {
   const { coinName } = useParams(null);
+  const history = useHistory();
 
   return (
     <div>
-      <AllTrades coin={coinName} baseCurrency='USD' />
-      <AllTrades coin={coinName} baseCurrency='BTC' />
+      <button onClick={() => history.goBack()}>Back</button>
+      <AllTrades coin={coinName} baseCurrency="USD" />
+      <AllTrades coin={coinName} baseCurrency="BTC" />
     </div>
   );
 };
