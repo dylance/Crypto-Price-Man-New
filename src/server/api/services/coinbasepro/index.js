@@ -2,6 +2,7 @@
  * Get data from coinbase pro REST API
  */
 
+const get24HourStats = require('./get24HourStats');
 const getAccountID = require('./getAccountID');
 const getAccounts = require('./getAccounts');
 const getCandles = require('./getCandles');
@@ -16,6 +17,7 @@ const viewUSDDeposits = require('./viewUSDDeposits');
 const getHistoricPrice = require('./getHistoricPrice');
 
 module.exports = {
+  get24HourStats,
   getAccountID,
   getAccounts,
   getCandles,
