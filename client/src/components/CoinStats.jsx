@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { AllTrades } from './AllTrades';
+import { TradesTable } from './Tables/TradesTable';
 
 export const CoinStats = () => {
   const { coinName } = useParams(null);
@@ -10,8 +10,8 @@ export const CoinStats = () => {
   return (
     <div>
       <button onClick={() => history.goBack()}>Back</button>
-      <AllTrades coin={coinName} baseCurrency="USD" />
-      <AllTrades coin={coinName} baseCurrency="BTC" />
+      <TradesTable coin={coinName} baseCurrency="USD" />
+      <TradesTable coin={coinName} baseCurrency="BTC" />
     </div>
   );
 };

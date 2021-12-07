@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const BalancesHeaders = ({ headers = [] }) => {
+export const TableHeaders = ({ headers = [] }) => {
   return (
     <thead>
       <tr>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { fetchData } from '../../hooks/fetchData';
+import { fetchData } from '../../../hooks/fetchData';
 
 const PercentChangeWrapper = styled.span`
   font-size: 14px;

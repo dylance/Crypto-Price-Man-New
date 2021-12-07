@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PriceStats } from './PriceStats';
-import { formatCurrency } from '../../util';
+import { formatCurrency } from '../../../util';
 
 const PriceWrapper = styled.div`
   display: flex;

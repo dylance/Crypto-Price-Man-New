@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { BalancesHeaders, AssetName, AssetPrice, AssetValue } from '.';
+import { TableHeaders } from '..';
+import { AssetName, AssetPrice, AssetValue } from '.';
 import { TableWrapper } from './styled';
 
 export const AssetsTable = ({ assets = [] }) => {
   return (
     <TableWrapper>
-      <BalancesHeaders headers={['Asset', 'Amount', 'Price', 'Value']} />
+      <TableHeaders headers={['Asset', 'Amount', 'Price', 'Value']} />
       <tbody>
         {assets.map((account) => {
           const { currency, balance, BTCPrice, USDPrice } = account;

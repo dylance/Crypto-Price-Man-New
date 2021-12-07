@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { formatDate, formatCurrency } from '../../util';
+import { formatDate, formatCurrency } from '../../../util';
 import { TableWrapper, StyledTable } from './styled';
 
-export const AllTrades = ({ coin, baseCurrency = 'USD' }) => {
+export const TradesTable = ({ coin, baseCurrency = 'USD' }) => {
   const [transactions, setTransactions] = useState([]);
   const decimalLimit = baseCurrency === 'USD' ? 2 : 7;
 
@@ -12,10 +12,10 @@ export const AllTrades = ({ coin, baseCurrency = 'USD' }) => {
     async function fetchData() {
       try {
         const { data } = await axios.get(
-          `/api/coinbase/sorted?coin=${ coin }&baseCurrency=${ baseCurrency }`
+          `/api/coinbase/sorted?coin=${coin}&baseCurrency=${baseCurrency}`,
         );
         const { data: priceTicker } = await axios.get(
-          `/api/coinbase/price-ticker?productId=${ coin }-${ baseCurrency }`
+          `/api/coinbase/price-ticker?productId=${coin}-${baseCurrency}`,
         );
 
         const currentPrice = parseFloat(priceTicker.price);
@@ -26,20 +26,20 @@ export const AllTrades = ({ coin, baseCurrency = 'USD' }) => {
             ...trade,
             currentValue,
             costBasis:
-              (trade.totalBought - trade.totalSold)
-              / parseFloat(trade.totalAtTheTime),
+              (trade.totalBought - trade.totalSold) /
+              parseFloat(trade.totalAtTheTime),
             currentPurchaseValueGain:
-              ((trade.size * currentPrice - trade.baseCurrencySpent)
-                / trade.baseCurrencySpent)
-              * 100,
+              ((trade.size * currentPrice - trade.baseCurrencySpent) /
+                trade.baseCurrencySpent) *
+              100,
             gains:
-              trade.totalAtTheTime * currentPrice
-              - trade.totalBought
-              + trade.totalSold,
+              trade.totalAtTheTime * currentPrice -
+              trade.totalBought +
+              trade.totalSold,
             totalGains:
-              ((currentValue - trade.totalBought)
-                / parseFloat(trade.totalBought))
-              * 100,
+              ((currentValue - trade.totalBought) /
+                parseFloat(trade.totalBought)) *
+              100,
           };
         });
 
@@ -57,7 +57,7 @@ export const AllTrades = ({ coin, baseCurrency = 'USD' }) => {
 
   if (transactions.length === 0) {
     return (
-      <h2>{`No transactions with ${ coin } and base of ${ baseCurrency }`}</h2>
+      <h2>{`No transactions with ${coin} and base of ${baseCurrency}`}</h2>
     );
   }
 
@@ -70,12 +70,8 @@ export const AllTrades = ({ coin, baseCurrency = 'USD' }) => {
               <th>Date</th>
               <th>Type</th>
               <th>Price</th>
-              <th>{`${ coin } Bought`}</th>
-              <th>
-                {baseCurrency}
-                {' '}
-                Spent
-              </th>
+              <th>{`${coin} Bought`}</th>
+              <th>{baseCurrency} Spent</th>
               <th>Total Spent</th>
               <th>Current Total</th>
               <th>Total Sold</th>
@@ -107,7 +103,7 @@ export const AllTrades = ({ coin, baseCurrency = 'USD' }) => {
               } = transaction;
 
               return (
-                <tr key={`${ created_at }-${ baseCurrencySpent }`}>
+                <tr key={`${created_at}-${baseCurrencySpent}`}>
                   <th>{formatDate(created_at)}</th>
                   <td>{type}</td>
                   <td style={{ textAlign: 'right' }}>
@@ -118,7 +114,7 @@ export const AllTrades = ({ coin, baseCurrency = 'USD' }) => {
                     {formatCurrency(
                       baseCurrencySpent,
                       decimalLimit,
-                      baseCurrency
+                      baseCurrency,
                     )}
                   </td>
                   <td>
@@ -136,14 +132,8 @@ export const AllTrades = ({ coin, baseCurrency = 'USD' }) => {
                     {formatCurrency(currentValue, decimalLimit, baseCurrency)}
                   </td>
                   <td>{formatCurrency(gains, decimalLimit, baseCurrency)}</td>
-                  <td>
-                    {currentPurchaseValueGain.toFixed(2)}
-                    %
-                  </td>
-                  <td>
-                    {totalGains.toFixed(2)}
-                    %
-                  </td>
+                  <td>{currentPurchaseValueGain.toFixed(2)}%</td>
+                  <td>{totalGains.toFixed(2)}%</td>
                 </tr>
               );
             })}

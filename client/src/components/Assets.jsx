@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { fetchData } from '../hooks/fetchData';
-import { AssetsTable } from './AssetsTable';
+import { AssetsTable } from './Tables/AssetsTable';
 import { AssetsTotals } from './AssetsTotals';
 import { AssetsPieChart } from './AssetsPieChart';
 
@@ -36,7 +36,7 @@ export const Assets = () => {
   }
    */
   const [{ data: assets }] = fetchData(
-    '/api/coinbase/accounts?showAccountsWithBalance=true'
+    '/api/coinbase/accounts?showAccountsWithBalance=true',
   );
 
   return (
