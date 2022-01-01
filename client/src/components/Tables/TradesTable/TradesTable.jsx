@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { TableHeaders } from '..';
 import { formatDate, formatCurrency } from '../../../util';
 import { TableWrapper, StyledTable } from './styled';
 
@@ -12,7 +13,7 @@ export const TradesTable = ({ coin, baseCurrency = 'USD' }) => {
     async function fetchData() {
       try {
         const { data } = await axios.get(
-          `/api/coinbase/sorted?coin=${coin}&baseCurrency=${baseCurrency}`,
+          `/api/coinbase/trades?coin=${coin}&baseCurrency=${baseCurrency}`,
         );
         const { data: priceTicker } = await axios.get(
           `/api/coinbase/price-ticker?productId=${coin}-${baseCurrency}`,
@@ -65,23 +66,24 @@ export const TradesTable = ({ coin, baseCurrency = 'USD' }) => {
     <TableWrapper>
       <div>
         <StyledTable>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Price</th>
-              <th>{`${coin} Bought`}</th>
-              <th>{baseCurrency} Spent</th>
-              <th>Total Spent</th>
-              <th>Current Total</th>
-              <th>Total Sold</th>
-              <th>Cost Basis</th>
-              <th>Current Value</th>
-              <th>Gains</th>
-              <th>Percent Change</th>
-              <th>Total Percent Change</th>
-            </tr>
-          </thead>
+          <TableHeaders
+            headers={[
+              'Date',
+              'Type',
+              'Price',
+              `${coin} Bought`,
+              `${baseCurrency} Spent`,
+              'Total Spent',
+              'Current Total',
+              'Total Sold',
+              'Cost Basis',
+              'Current Value',
+              'Gains',
+              'Percent Change',
+              'Total Percent Change',
+            ]}
+          />
+
           <tbody>
             {transactions.map((transaction) => {
               const {
