@@ -2,12 +2,13 @@ const { makeCoinbaseProRequest } = require('./helpers');
 
 const viewUSDDeposits = async () => {
   try {
-    const afterDate = new Date('2021:01:01').toISOString(); //"2011-12-19T15:28:46.493Z"
+    const afterDate = new Date('2021-01-01').toISOString(); //"2011-12-19T15:28:46.493Z"
     const path = `/transfers?type=deposit&before=${afterDate}`;
 
     const { data } = await makeCoinbaseProRequest(path);
 
     const deposits = data.filter(deposit => {
+      console.log("The deposit details are: ", deposit.details)
       return deposit.details.is_instant_usd === 'true';
     });
 
@@ -26,5 +27,6 @@ const viewUSDDeposits = async () => {
     console.log('The error is:', err);
   }
 };
+viewUSDDeposits();
 
 module.exports = viewUSDDeposits;

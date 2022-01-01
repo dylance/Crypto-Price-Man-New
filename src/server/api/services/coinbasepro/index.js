@@ -10,6 +10,7 @@ const getCostBasis = require('./getCostBasis');
 const getExternalTransfers = require('./getExternalTransfers');
 const getPriceTicker = require('./getPriceTicker');
 const getProducts = require('./getProducts');
+const getAllTradedPairs = require('./getAllTradedPairs');
 const getAllTrades = require('./getAllTrades');
 const getTradesCostBasis = require('./getTradesCostBasis');
 const getTrades = require('./getTrades');
@@ -25,6 +26,7 @@ module.exports = {
   getExternalTransfers,
   getPriceTicker,
   getProducts,
+  getAllTradedPairs,
   getAllTrades,
   getTradesCostBasis,
   getTrades,

@@ -20,6 +20,7 @@ const getTradesCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
       };
     });
 
+    // sorts trades chronologically
     const sortedTrades = tradesWithAmount.sort((a, b) => {
       const startDate = new Date(a.created_at);
       const endDate = new Date(b.created_at);
@@ -27,6 +28,7 @@ const getTradesCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
       return startDate - endDate;
     });
 
+    // converts price and size to floats
     const transactionsWithPrices = sortedTrades.map(transaction => {
       return {
         ...transaction,
@@ -67,6 +69,7 @@ const getTradesCostBasis = async (coin = 'BTC', baseCurrency = 'USD') => {
   }
 };
 
+getTradesCostBasis('AVAX', 'BTC');
 module.exports = getTradesCostBasis;
 
 const tradeExample = {
@@ -81,6 +84,3 @@ const tradeExample = {
 // need cost basis from 3rd party deposits
 // Get account ID of bitcoin
 // Use account ID of bitcoin to get bitcoin deposits
-
-// use this to get trades
-// node getAllTrades.js
